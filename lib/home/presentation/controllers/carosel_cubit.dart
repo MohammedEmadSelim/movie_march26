@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_app_march26/home/data/models/carosel_movie_model.dart';
+import 'package:movie_app_march26/home/data/models/movie_model.dart';
 
 part 'carosel_state.dart';
 

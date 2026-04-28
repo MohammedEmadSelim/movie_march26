@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
 import 'package:movie_app_march26/home/presentation/controllers/carosel_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controllers/now_playing_cubit/now_playing_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -59,11 +60,11 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 30),
               BlocBuilder<CarouselCubit, CaroselState>(
                 builder: (context, state) {
-                  if(state is CaroselLoading){
+                  if (state is CaroselLoading) {
                     return Center(child: CircularProgressIndicator());
                   }
-                  if (state is CaroselSuccess){
-                     var data = state.movies;
+                  if (state is CaroselSuccess) {
+                    var data = state.movies;
                     return CarouselSlider.builder(
                       options: CarouselOptions(
                         autoPlayCurve: Curves.decelerate,
@@ -75,21 +76,21 @@ class HomeScreen extends StatelessWidget {
                       itemCount: data.length,
                       itemBuilder:
                           (
-                          BuildContext context,
-                          int itemIndex,
-                          int pageViewIndex,
+                            BuildContext context,
+                            int itemIndex,
+                            int pageViewIndex,
                           ) => ClipRRect(
-                        borderRadius: BorderRadiusGeometry.circular(16),
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}',
-                          height: 250,
-                          width: 180,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                            borderRadius: BorderRadiusGeometry.circular(16),
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}',
+                              height: 250,
+                              width: 180,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                     );
                   }
-                  if(state is CaroselFailure){
+                  if (state is CaroselFailure) {
                     return Center(
                       child: Text(
                         state.message,
@@ -111,7 +112,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   );
-
                 },
               ),
               SizedBox(height: 36),
@@ -150,22 +150,49 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        childAspectRatio: 2 / 3,
-                      ),
-                      itemCount: imageUrls.length,
-                      padding: EdgeInsets.only(top: 8),
-                      itemBuilder: (context, index) => ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          imageUrls[index],
-                          fit: BoxFit.cover,
+                    BlocBuilder<NowPlayingCubit, NowPlayingState>(
+                      builder: (context, state) {
+                        if (state is NowPlayingLoading) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (state is NowPlayingSuccess) {
+                          var data = state.movies;
+                          return GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 2 / 3,
+                                ),
+                            itemCount: data.length,
+                            padding: EdgeInsets.only(top: 8),
+                            itemBuilder: (context, index) => ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        }
+                        if (state is NowPlayingFailure) {
+                          return Center(child: Text(state.message,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 34,
+                          ),
+                          ),
+                          );
+                        }
+                        return Center(child: Text('Unexpected Error please try again',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 34,
+                          ),
                         ),
-                      ),
+                        );
+                      },
                     ),
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
