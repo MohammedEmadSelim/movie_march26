@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
+import 'package:movie_app_march26/home/presentation/controllers/carosel_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,26 +57,62 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 30),
               CustomTextFormField(),
               SizedBox(height: 30),
-              CarouselSlider.builder(
-                options: CarouselOptions(
-                  autoPlayCurve: Curves.decelerate,
-                  autoPlayAnimationDuration: Duration(seconds: 2),
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  viewportFraction: 0.5,
-                ),
-                itemCount: imageUrls.length,
-                itemBuilder:
-                    (BuildContext context, int itemIndex, int pageViewIndex) =>
-                    ClipRRect(
-                      borderRadius: BorderRadiusGeometry.circular(16),
-                      child: Image.network(
-                        imageUrls[itemIndex],
-                        height: 250,
-                        width: 180,
-                        fit: BoxFit.cover,
+              BlocBuilder<CarouselCubit, CaroselState>(
+                builder: (context, state) {
+                  if(state is CaroselLoading){
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (state is CaroselSuccess){
+                     var data = state.movies;
+                    return CarouselSlider.builder(
+                      options: CarouselOptions(
+                        autoPlayCurve: Curves.decelerate,
+                        autoPlayAnimationDuration: Duration(seconds: 2),
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        viewportFraction: 0.5,
+                      ),
+                      itemCount: data.length,
+                      itemBuilder:
+                          (
+                          BuildContext context,
+                          int itemIndex,
+                          int pageViewIndex,
+                          ) => ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(16),
+                        child: Image.network(
+                          'https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}',
+                          height: 250,
+                          width: 180,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }
+                  if(state is CaroselFailure){
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: Text(
+                      'Un Expected error... please try again',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
                       ),
                     ),
+                  );
+
+                },
               ),
               SizedBox(height: 36),
               TabBar(

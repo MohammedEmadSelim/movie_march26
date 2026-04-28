@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_app_march26/home/data/models/carosel_movie_model.dart';
 
 part 'carosel_state.dart';
 
 class CarouselCubit extends Cubit<CaroselState> {
-
+  CarouselCubit() : super(CaroselInitial());
   Future<void>getCarouselMovie()async{
+    emit(CaroselLoading());
     var dio = Dio();
     try{
       var res = await dio.get('https://api.themoviedb.org/3/discover/movie',
@@ -17,9 +19,12 @@ class CarouselCubit extends Cubit<CaroselState> {
               }
           )
       );
+      var data = CarouselMovieResponseModel.fromJson(res.data);
+      emit(CaroselSuccess(movies: data.results));
     }catch(e){
       print(e);
+      emit(CaroselFailure(e.toString()));
     }
   }
-  CarouselCubit() : super(CaroselInitial());
+
 }
