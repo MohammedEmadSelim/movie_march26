@@ -46,7 +46,7 @@ class NavPage extends StatelessWidget {
             SizedBox(height: 15),
             CarouselSlider.builder(
               options: CarouselOptions(
-                height: 220,
+                height: 300,
                 autoPlayCurve: Curves.bounceOut,
                 autoPlayAnimationDuration: Duration(seconds: 3),
                 enlargeCenterPage: true,
@@ -63,26 +63,29 @@ class NavPage extends StatelessWidget {
                     int pageViewIndex,
                   ) => Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.network(
-                          imageUrls[itemIndex],
-                          height: 220,
-                          width: 250,
-                          fit: BoxFit.cover,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            imageUrls[itemIndex],
+                            height: 220,
+                            width: 250,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Positioned(
-                        left: 15,
-                        top: 100,
+                        bottom: 38,
+                        left: 10,
                         child: Stack(
                           children: [
                             // النص المفرغ (الحدود فقط)
                             Text(
-                              itemIndex.toString(),
+                          '${(itemIndex+1).toString()}',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 80,
+                                fontSize: 50,
                                 fontWeight: FontWeight.bold,
                                 foreground: Paint()
                                   ..style = PaintingStyle.stroke
@@ -94,10 +97,10 @@ class NavPage extends StatelessWidget {
                             // النص الأساسي (اختياري - إذا أردت تعبئة داخلية أيضاً)
                             // إذا أردته مفرغاً تماماً، احذف هذا الجزء
                             Text(
-                              itemIndex.toString(),
+                              '${(itemIndex+1).toString()}',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 80,
+                                fontSize: 50,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff242A32) // اجعل اللون شفافاً إذا أردت تفريغاً كاملاً
                               ),
@@ -108,6 +111,7 @@ class NavPage extends StatelessWidget {
                     ],
                   ),
             ),
+           
             //  using sizebox and clirrect
             // SizedBox(
             //   height: 300,
