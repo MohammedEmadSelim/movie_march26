@@ -5,4 +5,5 @@ class Appcolor {
   static Color seco_color = Colors.white;
   static Color thir_color = Color(0xff3A3F47);
   static Color fort_color = Color(0xff67686D);
+  static Color fiv_color = Color(0xff0296E5);
 }
