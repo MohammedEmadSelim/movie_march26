@@ -1,12 +1,16 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
+import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/tab_name_tabs.dart';
 
 class Homepage extends StatelessWidget {
-   Homepage({super.key});
- final List<String> imageUrls = [
+  Homepage({super.key});
+  final List<String> imageUrls = [
     'https://picsum.photos/id/101/600/400',
     'https://picsum.photos/id/102/600/400',
     'https://picsum.photos/id/103/600/400',
@@ -31,7 +35,7 @@ class Homepage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Appcolor.prim_color,
         body: Padding(
-          padding: const EdgeInsets.only(left: 15,right: 15,top: 35),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 35),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,68 +50,84 @@ class Homepage extends StatelessWidget {
               ),
               SizedBox(height: 15),
               custom_text_field(text: 'Search', iconData: Icons.search),
-              SizedBox(height: 15),
-              CarouselSlider.builder(
-                options: CarouselOptions(
-                  height: 220,
-                  autoPlayCurve: Curves.bounceOut,
-                  autoPlayAnimationDuration: const Duration(seconds: 3),
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
-                ),
-                itemCount: imageUrls.length,
-                itemBuilder:
-                    (BuildContext context, int itemIndex, int pageViewIndex) =>
-                        Stack(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.asset(
-                                  'assets/images/popcorn 1.png',
-                                  height: 220,
-                                  width: 250,
-                                  fit: BoxFit.cover,
+              BlocBuilder<CarouselCubit, CarouselState>(
+                builder: (context, state) {
+                  if (state is CarouselLoading) {
+                    return CircularProgressIndicator();
+                  } else if (state is CarouselSuccess) {
+                    var data = state.movies;
+                    return CarouselSlider.builder(
+                      options: CarouselOptions(
+                        height: 220,
+                       // autoPlayCurve: Curves.bounceOut,
+                        autoPlayAnimationDuration: const Duration(seconds: 3),
+                        enlargeCenterPage: true,
+                        autoPlay: false,
+                        enableInfiniteScroll: false,
+                        viewportFraction: 0.6,
+                      ),
+                      itemCount: state.movies.length,
+                      itemBuilder:
+                          (
+                            BuildContext context,
+                            int itemIndex,
+                            int pageViewIndex,
+                          ) => Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}",
+                                    height: 220,
+                                    width: 250,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              left: 10,
-                              child: Stack(
-                                children: [
-                                  // النص ذو الحدود (Outline)
-                                  Text(
-                                    '${(itemIndex + 1)}',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.bold,
-                                      foreground: Paint()
-                                        ..style = PaintingStyle.stroke
-                                        ..strokeWidth = 3
-                                        ..color = Appcolor.fiv_color,
+                              Positioned(
+                                bottom: 0,
+                                left: 10,
+                                child: Stack(
+                                  children: [
+                                    // النص ذو الحدود (Outline)
+                                    Text(
+                                      '${(itemIndex + 1)}',
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.bold,
+                                        foreground: Paint()
+                                          ..style = PaintingStyle.stroke
+                                          ..strokeWidth = 3
+                                          ..color = Appcolor.fiv_color,
+                                      ),
                                     ),
-                                  ),
-                                  // النص الداخلي
-                                  Text(
-                                    '${(itemIndex + 1)}',
-                                    style: const TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff242A32),
+                                    // النص الداخلي
+                                    Text(
+                                      '${(itemIndex + 1)}',
+                                      style: const TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xff242A32),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                    );
+                  } else if (state is CarouselFailure) {
+                    return Text('Error: ${state.message}');
+                  } else {
+                    return Container();
+                  }
+                },
               ),
+              SizedBox(height: 15),
               SizedBox(height: 15),
               TabBar(
                 indicatorSize: TabBarIndicatorSize.label,
@@ -125,7 +145,6 @@ class Homepage extends StatelessWidget {
                   tab_name_tabs(text: 'Popular'),
                 ],
               ),
-              
               Expanded(
                 child: TabBarView(
                   children: [
@@ -136,7 +155,9 @@ class Homepage extends StatelessWidget {
                       ),
                       itemCount: 20,
                       itemBuilder: (context, index) {
-                        return Card(child: Center(child: Text('عنصر ${(index+1)}')));
+                        return Card(
+                          child: Center(child: Text('عنصر ${(index + 1)}')),
+                        );
                       },
                     ),
                     Text('ddd'),

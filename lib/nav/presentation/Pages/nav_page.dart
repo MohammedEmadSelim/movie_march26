@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/home/presentation/Pages/HomePage.dart';
+import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
 
 class NavPage extends StatefulWidget {
   NavPage({super.key});
@@ -12,7 +14,9 @@ class NavPage extends StatefulWidget {
 
 class _NavPageState extends State<NavPage> {
  List<Widget> pages = [
-  Homepage(),
+  BlocProvider(
+    create: (context) => CarouselCubit()..getCarouselMovies(),
+    child: Homepage()),
   Text('sssssss'),
   Text('dddddddddddddd')
  ];
