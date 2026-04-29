@@ -60,8 +60,8 @@ class Homepage extends StatelessWidget {
                       options: CarouselOptions(
                         height: 220,
                        // autoPlayCurve: Curves.bounceOut,
-                        autoPlayAnimationDuration: const Duration(seconds: 3),
-                        enlargeCenterPage: true,
+                        //autoPlayAnimationDuration: const Duration(seconds: 3),
+                        //enlargeCenterPage: true,
                         autoPlay: false,
                         enableInfiniteScroll: false,
                         viewportFraction: 0.6,
@@ -166,7 +166,15 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
               ),
-              //  using sizebox and clirrect
+  
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+            //  using sizebox and clirrect
               // SizedBox(
               //   height: 300,
               //   child: ListView.builder(
@@ -180,10 +188,3 @@ class Homepage extends StatelessWidget {
               //     ),
               //   ),
               // ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
