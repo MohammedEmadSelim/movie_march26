@@ -46,11 +46,13 @@ class NavPage extends StatelessWidget {
             SizedBox(height: 15),
             CarouselSlider.builder(
               options: CarouselOptions(
-                height: 250,
+                height: 220,
                 autoPlayCurve: Curves.bounceOut,
                 autoPlayAnimationDuration: Duration(seconds: 3),
                 enlargeCenterPage: true,
                 autoPlay: true,
+                // scroll infity
+                enableInfiniteScroll: false,
                 viewportFraction: 0.6,
               ),
               itemCount: imageUrls.length,
@@ -65,14 +67,14 @@ class NavPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                         child: Image.network(
                           imageUrls[itemIndex],
-                          height: 250,
+                          height: 220,
                           width: 250,
                           fit: BoxFit.cover,
                         ),
                       ),
                       Positioned(
                         left: 15,
-                        top: 120,
+                        top: 100,
                         child: Stack(
                           children: [
                             // النص المفرغ (الحدود فقط)
@@ -80,7 +82,7 @@ class NavPage extends StatelessWidget {
                               itemIndex.toString(),
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 100,
+                                fontSize: 80,
                                 fontWeight: FontWeight.bold,
                                 foreground: Paint()
                                   ..style = PaintingStyle.stroke
@@ -95,7 +97,7 @@ class NavPage extends StatelessWidget {
                               itemIndex.toString(),
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 100,
+                                fontSize: 80,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff242A32) // اجعل اللون شفافاً إذا أردت تفريغاً كاملاً
                               ),
