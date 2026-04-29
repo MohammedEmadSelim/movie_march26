@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
-import 'package:movie_app_march26/nav/presentation/nav_page.dart';
+import 'package:movie_app_march26/nav/presentation/Pages/nav_page.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
