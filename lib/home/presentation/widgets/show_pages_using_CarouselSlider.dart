@@ -16,7 +16,7 @@ class show_pages_using_CarouselSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       options: CarouselOptions(
-        height: 200,
+       // height: 200,
         // autoPlayCurve: Curves.bounceOut,
         //autoPlayAnimationDuration: const Duration(seconds: 3),
         //enlargeCenterPage: true,

@@ -1,11 +1,9 @@
-import 'dart:math';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
-import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
+
 import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/Up_coming_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/Up_coming_states.dart';
@@ -59,19 +57,25 @@ class Homepage extends StatelessWidget {
               SizedBox(height: 15),
               custom_text_field(text: 'Search', iconData: Icons.search),
               SizedBox(height: 20),
-              BlocBuilder<CarouselCubit, CarouselState>(
-                builder: (context, state) {
-                  if (state is CarouselLoading) {
-                    return loading_circler();
-                  } else if (state is CarouselSuccess) {
-                    var data = state.movies;
-                    return show_pages_using_CarouselSlider(data: data);
-                  } else if (state is CarouselFailure) {
-                    return Text('Error: ${state.message}');
-                  } else {
-                    return Container();
-                  }
-                },
+              SizedBox(
+                height: 200,
+                child: BlocBuilder<CarouselCubit, CarouselState>(
+                  builder: (context, state) {
+                    if (state is CarouselLoading) {
+                      return loading_circler();
+                    } else if (state is CarouselSuccess) {
+                      var data = state.movies;
+                      return show_pages_using_CarouselSlider(data: data);
+                    } else if (state is CarouselFailure) {
+                      return Container(
+                              color: Colors.red,
+                              child: Text('Error: ${state.toString()}'),
+                            );
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
               ),
               // SizedBox(height: 8),
               TabBar(
@@ -101,7 +105,10 @@ class Homepage extends StatelessWidget {
                           var data = state.movies;
                           return grid_view_custom_tabs(data: state.movies);
                         } else if (state is NowPlayingFailure) {
-                          return Text('Error: ${state.message}');
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
                         } else {
                           return Container(
                             color: Colors.red,
@@ -118,7 +125,10 @@ class Homepage extends StatelessWidget {
                           var data = state.results;
                           return grid_view_custom_tabs(data: state.results);
                         } else if (state is UpComingFailure) {
-                          return Text('Error: ${state.message}');
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
                         } else {
                           return Container(
                             color: Colors.red,
