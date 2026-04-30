@@ -15,7 +15,7 @@ import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dar
 import 'package:movie_app_march26/nav/presentation/widgets/tab_name_tabs.dart';
 
 class Homepage extends StatelessWidget {
-  Homepage({super.key});
+ const Homepage({super.key});
   // final List<String> imageUrls = [
   //   'https://picsum.photos/id/101/600/400',
   //   'https://picsum.photos/id/102/600/400',
@@ -103,7 +103,7 @@ class Homepage extends StatelessWidget {
                           return loading_circler();
                         } else if (state is NowPlayingSuccess) {
                           var data = state.movies;
-                          return grid_view_custom_tabs(data: state.movies);
+                          return grid_view_custom_tabs(data: data);
                         } else if (state is NowPlayingFailure) {
                           return Container(
                             color: Colors.red,
@@ -123,7 +123,7 @@ class Homepage extends StatelessWidget {
                           return loading_circler();
                         } else if (state is UpComingSuccess) {
                           var data = state.results;
-                          return grid_view_custom_tabs(data: state.results);
+                          return grid_view_custom_tabs(data: data);
                         } else if (state is UpComingFailure) {
                           return Container(
                             color: Colors.red,
