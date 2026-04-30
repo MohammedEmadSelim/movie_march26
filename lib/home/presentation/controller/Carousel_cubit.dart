@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/home/data/modules/CarouselMovie.dart';
+import 'package:movie_app_march26/nav/data/modules/Movie_mpdel.dart';
 
 part 'Carousel_state.dart';
 

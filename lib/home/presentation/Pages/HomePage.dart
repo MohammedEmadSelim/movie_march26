@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controller/nowplaying_cubit/now_playing_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/tab_name_tabs.dart';
 
@@ -50,21 +51,26 @@ class Homepage extends StatelessWidget {
               ),
               SizedBox(height: 15),
               custom_text_field(text: 'Search', iconData: Icons.search),
+              SizedBox(height: 20),
               BlocBuilder<CarouselCubit, CarouselState>(
                 builder: (context, state) {
                   if (state is CarouselLoading) {
-                    return CircularProgressIndicator();
+                    return CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Appcolor.fort_color,
+                    );
                   } else if (state is CarouselSuccess) {
                     var data = state.movies;
                     return CarouselSlider.builder(
                       options: CarouselOptions(
-                        height: 220,
-                       // autoPlayCurve: Curves.bounceOut,
+                        height: 200,
+                        // autoPlayCurve: Curves.bounceOut,
                         //autoPlayAnimationDuration: const Duration(seconds: 3),
                         //enlargeCenterPage: true,
                         autoPlay: false,
                         enableInfiniteScroll: false,
-                        viewportFraction: 0.6,
+                       // viewportFraction: 0.6,
+                        
                       ),
                       itemCount: state.movies.length,
                       itemBuilder:
@@ -74,16 +80,13 @@ class Homepage extends StatelessWidget {
                             int pageViewIndex,
                           ) => Stack(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Image.network(
-                                    "https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}",
-                                    height: 220,
-                                    width: 250,
-                                    fit: BoxFit.cover,
-                                  ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.network(
+                                  "https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}",
+                                  height: 200,
+                                  width: 250,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               Positioned(
@@ -127,8 +130,7 @@ class Homepage extends StatelessWidget {
                   }
                 },
               ),
-              SizedBox(height: 15),
-              SizedBox(height: 15),
+             // SizedBox(height: 8),
               TabBar(
                 indicatorSize: TabBarIndicatorSize.label,
                 //indicatorColor: Appcolor.fort_color,
@@ -140,7 +142,7 @@ class Homepage extends StatelessWidget {
                 dividerHeight: 0,
                 tabs: [
                   tab_name_tabs(text: 'Now playing'),
-                  tab_name_tabs(text: 'Upcoming'),
+                  tab_name_tabs(text: 'Up coming'),
                   tab_name_tabs(text: 'Top rated'),
                   tab_name_tabs(text: 'Popular'),
                 ],
@@ -148,16 +150,43 @@ class Homepage extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 0.6,
-                      ),
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Center(child: Text('عنصر ${(index + 1)}')),
-                        );
+                    BlocBuilder<NowPlayingCubit, NowPlayingState>(
+                      builder: (context, state) {
+                        if (state is NowPlayingLoading) {
+                          return CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Appcolor.fort_color,
+                          );
+                        } else if (state is NowPlayingSuccess) {
+                          var data = state.movies;
+                          return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 0.6,
+                                mainAxisSpacing: 8,
+                                crossAxisSpacing: 8,
+                              ),
+                          itemCount: 20,
+                          itemBuilder: (context, index) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.network(
+                                "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
+                                height: 220,
+                                width: 250,
+                                fit: BoxFit.cover,
+                              ),);
+                          },
+                        );;
+                        } else if (state is NowPlayingFailure) {
+                          return Text('Error: ${state.message}');
+                        } else {
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
+                        }
                       },
                     ),
                     Text('ddd'),
@@ -166,7 +195,6 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
               ),
-  
             ],
           ),
         ),
