@@ -1,4 +1,6 @@
-import 'package:movie_app_march26/nav/data/modules/Movie_mpdel.dart';
+
+
+import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 
 class CarouselMovieResponseModel {
   final int page;

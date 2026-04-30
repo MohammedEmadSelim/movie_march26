@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/home/presentation/Pages/HomePage.dart';
 import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/Up_coming_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controller/nowplaying_cubit/now_playing_cubit.dart';
 
 class NavPage extends StatefulWidget {
@@ -25,9 +26,9 @@ class _NavPageState extends State<NavPage> {
         BlocProvider(
           create: (context) => NowPlayingCubit()..getNowPlaying(),
         ),
-        // BlocProvider(
-        //   create: (context) => UpComingCubit()..getUpComingMovies(),
-        // ),
+        BlocProvider(
+          create: (context) => UpComingCubit()..getUpComingMovies(),
+        ),
       ],
       child: Homepage(),
     ),

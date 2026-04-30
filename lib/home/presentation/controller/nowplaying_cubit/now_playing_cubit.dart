@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 import 'package:movie_app_march26/home/data/modules/now_playing_model.dart';
-import 'package:movie_app_march26/nav/data/modules/Movie_mpdel.dart';
+
 
 
 part 'now_playing_stetes.dart';
