@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app_march26/core/colors.dart';
+import 'package:movie_app_march26/core/theme/colors.dart';
 import 'package:movie_app_march26/home/presentation/controllers/carosel_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/up_coming_cubit.dart';
 import 'package:movie_app_march26/home/presentation/screens/home_screen.dart';
 import 'package:movie_app_march26/search/presentation/search_screen.dart';
 import 'package:movie_app_march26/watch_list/presentation/watch_list_screen.dart';
@@ -27,6 +28,9 @@ class _NavScreenState extends State<NavScreen> {
         ),
         BlocProvider(
           create: (context) => NowPlayingCubit()..getNowPlayingMovies(),
+        ),
+        BlocProvider(
+          create: (context) => UpComingCubit()..getUpComingMovies(),
         ),
       ],
       child: HomeScreen(),

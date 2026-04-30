@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
 import 'package:movie_app_march26/home/presentation/controllers/carosel_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/now_playing_cubit/now_playing_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/up_coming_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -177,39 +178,74 @@ class HomeScreen extends StatelessWidget {
                           );
                         }
                         if (state is NowPlayingFailure) {
-                          return Center(child: Text(state.message,
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 34,
-                          ),
-                          ),
+                          return Center(
+                            child: Text(
+                              state.message,
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 34,
+                              ),
+                            ),
                           );
                         }
-                        return Center(child: Text('Unexpected Error please try again',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 34,
+                        return Center(
+                          child: Text(
+                            'Unexpected Error please try again',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 34,
+                            ),
                           ),
-                        ),
                         );
                       },
                     ),
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        childAspectRatio: 2 / 3,
-                      ),
-                      itemCount: imageUrls.length,
-                      padding: EdgeInsets.only(top: 8),
-                      itemBuilder: (context, index) => ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          imageUrls[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                    BlocBuilder<UpComingCubit, UpComingState>(
+                      builder: (context, state) {
+                        if(state is UpComingLoading){
+                          return Center(child:CircularProgressIndicator() ,);
+                        }
+                        if(state is UpComingSuccess){
+                          var data = state.movies;
+                          return GridView.builder(
+                            gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 2 / 3,
+                            ),
+                            itemCount: data.length,
+                            padding: EdgeInsets.only(top: 8),
+                            itemBuilder: (context, index) => ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        }
+                        if(state is UpComingFailure){
+                          return Center(
+                            child: Text(
+                              state.message,
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 34,
+                              ),
+                            ),
+                          );
+                        }
+                        return Center(
+                          child: Text(
+                            'Un Expected Error......... Please try again',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 34,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

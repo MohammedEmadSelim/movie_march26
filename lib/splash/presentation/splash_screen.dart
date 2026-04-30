@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/core/colors.dart';
+import 'package:movie_app_march26/core/theme/colors.dart';
 import 'package:movie_app_march26/nav/presentation/nav_screen.dart';
 
 class SplachScreen extends StatefulWidget {
