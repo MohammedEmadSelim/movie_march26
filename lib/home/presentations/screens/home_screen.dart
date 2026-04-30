@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
 import 'package:movie_app_march26/home/presentations/controller/carousel_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/nowPlaying/now_playing_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/popular/popular_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/topRated/top_rated_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/upComing/up_coming_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -85,16 +89,16 @@ class HomeScreen extends StatelessWidget {
                       autoPlay: true,
                       viewportFraction: 0.5,
                     ),
-                    itemCount: imageUrls.length,
+                    itemCount: data.length,
                     itemBuilder:
-                        (
-                          BuildContext context,
-                          int itemIndex,
-                          int pageViewIndex,
-                        ) => ClipRRect(
+                        (BuildContext context,
+                        int itemIndex,
+                        int pageViewIndex,) =>
+                        ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
-                            "https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}",
+                            "https://image.tmdb.org/t/p/w500${data[itemIndex]
+                                .posterPath}",
                             height: 250,
                             width: 180,
                             fit: BoxFit.cover,
@@ -102,7 +106,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                   );
                 }
-
                 if (state is CarouselFailure) {
                   return Center(
                     child: Text(
@@ -115,7 +118,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                 }
-                return Center(child: Text("some unexpected has been happened",style: TextStyle(
+                return Center(child: Text(
+                    "some unexpected has been happened", style: TextStyle(
                   color: AppColors.white,
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
@@ -174,47 +178,205 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 2 / 3,
-                    ),
-                    itemBuilder: (context, index) => ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        imageUrls[index],
-                        height: 250,
-                        width: 180,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    itemCount: imageUrls.length,
+                  BlocBuilder<NowPlayingCubit, NowPlayingState>(
+                    builder: (context, state) {
+                      print("state==========>$state");
+                      if (state is NowPlayingLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state is NowPlayingSuccess) {
+                        var data = state.movies;
+                        return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 2 / 3,
+                          ),
+                          itemBuilder: (context, index) =>
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.network(
+                                  "https://image.tmdb.org/t/p/w500${data[index]
+                                      .posterPath}",
+                                  height: 250,
+                                  width: 180,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                          itemCount: data.length,
+                        );
+                      }
+                      if (state is NowPlayingFailed) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        );
+                      }
+                      return Center(child: Text(
+                          "some unexpected has been happened", style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      )));
+
+                    },
                   ),
-                  Container(
-                    child: Center(
-                      child: Text(
-                        "up coming ",
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                    ),
+                  BlocBuilder<UpComingCubit, UpComingState>(
+                    builder: (context, state) {
+                      print("state==========>$state");
+                      if (state is UpComingLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state is UpComingSuccess) {
+                        var data = state.movies;
+                        return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 2 / 3,
+                          ),
+                          itemBuilder: (context, index) =>
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.network(
+                                  "https://image.tmdb.org/t/p/w500${data[index]
+                                      .posterPath}",
+                                  height: 250,
+                                  width: 180,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                          itemCount: data.length,
+                        );
+                      }
+                      if (state is UpComingFailed) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        );
+                      }
+                      return Center(child: Text(
+                          "some unexpected has been happened", style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      )));
+
+                    },
                   ),
-                  Container(
-                    child: Center(
-                      child: Text(
-                        "top rated ",
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                    ),
+                  BlocBuilder<TopRatedCubit, TopRatedState>(
+                    builder: (context, state) {
+                      print("state==========>$state");
+                      if (state is TopRatedLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state is TopRatedSuccess) {
+                        var data = state.movies;
+                        return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 2 / 3,
+                          ),
+                          itemBuilder: (context, index) =>
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.network(
+                                  "https://image.tmdb.org/t/p/w500${data[index]
+                                      .posterPath}",
+                                  height: 250,
+                                  width: 180,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                          itemCount: data.length,
+                        );
+                      }
+                      if (state is TopRatedFailed) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        );
+                      }
+                      return Center(child: Text(
+                          "some unexpected has been happened", style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      )));
+
+                    },
                   ),
-                  Container(
-                    child: Center(
-                      child: Text(
-                        "popular ",
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                    ),
+                  BlocBuilder<PopularCubit, PopularState>(
+                    builder: (context, state) {
+                      print("state==========>$state");
+                      if (state is PopularLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state is PopularSuccess) {
+                        var data = state.movies;
+                        return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 2 / 3,
+                          ),
+                          itemBuilder: (context, index) =>
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.network(
+                                  "https://image.tmdb.org/t/p/w500${data[index]
+                                      .posterPath}",
+                                  height: 250,
+                                  width: 180,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                          itemCount: data.length,
+                        );
+                      }
+                      if (state is PopularFailed) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        );
+                      }
+                      return Center(child: Text(
+                          "some unexpected has been happened", style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      )));
+
+                    },
                   ),
                 ],
               ),
