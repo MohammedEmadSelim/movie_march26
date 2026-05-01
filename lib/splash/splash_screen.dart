@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+
+import '../core/app_colors.dart';
+import '../nav/screens/nav_screen.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      Navigator.pushReplacement(
+        context,
+
+        MaterialPageRoute(builder: (context) => NavScreen()),
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.navy,
+      body: Center(child: Image.asset('assets/popcorn 1.png')),
+    );
+  }
+}
