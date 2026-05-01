@@ -5,11 +5,14 @@ import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
 
 import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controller/Popular_cubit/popular_cubit_cubit.dart';
+import 'package:movie_app_march26/home/presentation/controller/Top_rated_cubit/top_rated_cubit_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/Up_coming_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/Up_coming_states.dart';
 import 'package:movie_app_march26/home/presentation/controller/nowplaying_cubit/now_playing_cubit.dart';
 import 'package:movie_app_march26/home/presentation/widgets/grid_view_custom_tabs.dart';
 import 'package:movie_app_march26/home/presentation/widgets/show_pages_using_CarouselSlider.dart';
+import 'package:movie_app_march26/home/presentation/widgets/show_pages_using_sizedbox.dart';
 
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/tab_name_tabs.dart';
@@ -65,7 +68,7 @@ class Homepage extends StatelessWidget {
                       return loading_circler();
                     } else if (state is CarouselSuccess) {
                       var data = state.movies;
-                      return show_pages_using_CarouselSlider(data: data);
+                      return show_pages_using_sizedbox(data: data);
                     } else if (state is CarouselFailure) {
                       return Container(
                               color: Colors.red,
@@ -137,8 +140,46 @@ class Homepage extends StatelessWidget {
                         }
                       },
                     ),
-                    loading_circler(),
-                    Text('ddd'),
+                     BlocBuilder<TopRatedCubitCubit, TopRatedCubitState>(
+                      builder: (context, state) {
+                        if (state is TopRatedCubitLoading) {
+                          return loading_circler();
+                        } else if (state is TopRatedCubitSuccess) {
+                          var data = state.movies;
+                          return grid_view_custom_tabs(data: data);
+                        } else if (state is TopRatedCubitFailure) {
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
+                        } else {
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
+                        }
+                      },
+                    ),
+                    BlocBuilder<PopularCubitCubit, PopularCubitState>(
+                      builder: (context, state) {
+                        if (state is PopularCubitLoading) {
+                          return loading_circler();
+                        } else if (state is PopularCubitSuccess) {
+                          var data = state.movies;
+                          return grid_view_custom_tabs(data: data);
+                        } else if (state is PopularCubitFailure) {
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
+                        } else {
+                          return Container(
+                            color: Colors.red,
+                            child: Text('Error: ${state.toString()}'),
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),

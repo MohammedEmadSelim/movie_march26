@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_march26/Splash/presentation/SplashScreen.dart';
-import 'package:movie_app_march26/details/pages/datails_page.dart';
+
 
 void main() {
   runApp(const MovieApp());
@@ -14,7 +14,7 @@ class MovieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DatailsPage()
+      home: Splashscreen()
       );
   }
 }

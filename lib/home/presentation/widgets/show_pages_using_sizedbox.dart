@@ -14,7 +14,7 @@ class show_pages_using_sizedbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 270,
+      height: 230,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: data.length,
@@ -26,8 +26,8 @@ class show_pages_using_sizedbox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: Image.network(
                   "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
-                  height: 250,
-                  width: 200,
+                  height: 220,
+                  width: 150,
                   fit: BoxFit.fill,
                 ),
               ),

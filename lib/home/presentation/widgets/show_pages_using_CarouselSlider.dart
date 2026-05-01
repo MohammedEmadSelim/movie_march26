@@ -16,14 +16,32 @@ class show_pages_using_CarouselSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       options: CarouselOptions(
-       // height: 200,
-        // autoPlayCurve: Curves.bounceOut,
-        //autoPlayAnimationDuration: const Duration(seconds: 3),
-        //enlargeCenterPage: true,
-        autoPlay: false,
-        enableInfiniteScroll: false,
+     // 1. الأبعاد والنسب
+  height: 400, // حدد الارتفاع المناسب لتصميمك (مثلاً 400 للبوسترات الكبيرة أو 200 للبنرات)
+  aspectRatio: 16 / 9, // النسبة بين العرض والارتفاع في حال لم تحدد الارتفاع
+  viewportFraction: 0.8, // يعرض 80% من العنصر الحالي، ويظهر 10% من العناصر المجاورة على الجوانب
+
+  // 2. التشغيل التلقائي (Auto Play)
+  autoPlay: true, // تفعيل التمرير التلقائي
+  autoPlayInterval: const Duration(seconds: 4), // المدة بين كل حركة وتغيير
+  autoPlayAnimationDuration: const Duration(milliseconds: 800), // سرعة حركة التغيير نفسها
+  autoPlayCurve: Curves.fastOutSlowIn, // منحنى الحركة (يجعلها تبدو طبيعية وسلسة)
+
+  // 3. التفاعل والتحكم
+  enlargeCenterPage: true, // تكبير العنصر المعروض في المنتصف لتمييزه عن العناصر الجانبية
+  enlargeFactor: 0.3, // نسبة التكبير (كلما زادت، زاد الفارق بين العنصر الأساسي والجانبي)
+  enableInfiniteScroll: true, // يجعل القائمة تدور بشكل لا نهائي دون توقف عند البداية أو النهاية
+
+  // 4. اتجاه الحركة وسلوك التمرير
+  scrollDirection: Axis.horizontal, // التمرير أفقي
+  reverse: false, // التمرير من اليسار لليمين بشكل طبيعي
+
+  // 5. إدارة الحالة (Callback)
+  onPageChanged: (index, reason) {
+    // يمكنك استخدام هذا لتحديث نقاط المؤشر (Dots Indicator) تحت الكاروسيل
+    // print('الصفحة الحالية: $index');
+  },
     
-        // viewportFraction: 0.6,
       ),
       itemCount: data.length,
       itemBuilder:
@@ -38,7 +56,7 @@ class show_pages_using_CarouselSlider extends StatelessWidget {
                 child: Image.network(
                   "https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}",
                   height: 200,
-                  width: 250,
+                  width: 150,
                   fit: BoxFit.cover,
                 ),
               ),
