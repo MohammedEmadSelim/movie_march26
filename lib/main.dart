@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_march26/Splash/presentation/SplashScreen.dart';
+import 'package:movie_app_march26/details/pages/datails_page.dart';
 
 void main() {
   runApp(const MovieApp());
 }
-
+// {}
+// ctrl + shift + -
 class MovieApp extends StatelessWidget {
   const MovieApp({super.key});
 
@@ -12,7 +14,7 @@ class MovieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Splashscreen()
+      home: DatailsPage()
       );
   }
 }
