@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
 

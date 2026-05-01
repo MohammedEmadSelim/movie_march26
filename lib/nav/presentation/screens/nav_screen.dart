@@ -48,7 +48,6 @@ class _NavScreenState extends State<NavScreen> {
           currentIndex: currentIndex,
           onTap: (value) {
             print(value);
-
             setState(() {
               currentIndex = value;
             });

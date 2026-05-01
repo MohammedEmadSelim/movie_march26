@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
+import 'package:movie_app_march26/detailes/presentation/screens/detailes_screen.dart';
 import 'package:movie_app_march26/home/presentations/controller/carousel_cubit.dart';
 import 'package:movie_app_march26/home/presentations/controller/nowPlaying/now_playing_cubit.dart';
 import 'package:movie_app_march26/home/presentations/controller/popular/popular_cubit.dart';
@@ -11,25 +12,6 @@ import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dar
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-
-  final List<String> imageUrls = [
-    'https://picsum.photos/id/101/600/400',
-    'https://picsum.photos/id/102/600/400',
-    'https://picsum.photos/id/103/600/400',
-    'https://picsum.photos/id/104/600/400',
-    'https://picsum.photos/id/101/600/400',
-    'https://picsum.photos/id/102/600/400',
-    'https://picsum.photos/id/103/600/400',
-    'https://picsum.photos/id/104/600/400',
-    'https://picsum.photos/id/101/600/400',
-    'https://picsum.photos/id/102/600/400',
-    'https://picsum.photos/id/103/600/400',
-    'https://picsum.photos/id/104/600/400',
-    'https://picsum.photos/id/101/600/400',
-    'https://picsum.photos/id/102/600/400',
-    'https://picsum.photos/id/103/600/400',
-    'https://picsum.photos/id/104/600/400',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -94,15 +76,22 @@ class HomeScreen extends StatelessWidget {
                         (BuildContext context,
                         int itemIndex,
                         int pageViewIndex,) =>
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            "https://image.tmdb.org/t/p/w500${data[itemIndex]
-                                .posterPath}",
-                            height: 250,
-                            width: 180,
-                            fit: BoxFit.cover,
+                        GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              "https://image.tmdb.org/t/p/w500${data[itemIndex]
+                                  .posterPath}",
+                              height: 250,
+                              width: 180,
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                          onTap: (){
+                            print(data[itemIndex].id);
+                            var movie_id = data[itemIndex].id;
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie_id: movie_id.toString(),)));
+                          },
                         ),
                   );
                 }
