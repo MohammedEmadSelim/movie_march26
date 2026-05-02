@@ -2,11 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
+import 'package:movie_app_march26/core/utiles/global_widgets/search_widget.dart';
 import 'package:movie_app_march26/home/presentations/controller/carousel_cubit.dart';
 import 'package:movie_app_march26/home/presentations/controller/now_playing_cubit/now_playing_cubit.dart';
 import 'package:movie_app_march26/home/presentations/controller/up_coming_cubit/up_coming_cubit.dart';
 import 'package:movie_app_march26/home/presentations/screens/home_screen.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
+import 'package:movie_app_march26/search/presentation/controllers/search_cubit.dart';
+import 'package:movie_app_march26/search/presentation/ui_screens/search_screen.dart';
 
 class NavScreen extends StatefulWidget {
   NavScreen({super.key});
@@ -33,7 +36,10 @@ class _NavScreenState extends State<NavScreen> {
       ],
       child: HomeScreen(),
     ),
-    Container(),
+    BlocProvider(
+      create: (context) => SearchCubit(),
+      child: SearchWidget(),
+    ),
     Container(),
   ];
 
