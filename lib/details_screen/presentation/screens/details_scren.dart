@@ -47,22 +47,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: Column(
                 children: [
                   Expanded(
+                    flex: 5,
                     child: Stack(
-                      alignment: AlignmentGeometry.center,
+                      alignment: AlignmentGeometry.bottomCenter,
                       fit: StackFit.expand,
                       children: [
                         Positioned(
                           top: 0,
-                          child: ClipRRect(
-                            borderRadius: BorderRadiusGeometry.only(
-                              bottomLeft: Radius.circular(12),
-                              bottomRight: Radius.circular(12),
+                          child: SizedBox(
+                            height: 400,
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.only(
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
+                              ),
+                              child: Image.network(   "https://image.tmdb.org/t/p/w500${movie.backdropPath}",),
                             ),
-                            child: Image.network(   "https://image.tmdb.org/t/p/w500${movie.posterPath}",),
                           ),
                         ),
                         Positioned(
-                          top: 120,
+                          bottom: 0,
                           left: 20,
                           width: 120,
                           height: 160,
@@ -73,7 +77,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         Positioned(
                           left: 150,
-                          top: 220,
+                          bottom: 0,
                           child: SizedBox(
                             width: 210,
                             child: Text(
@@ -89,46 +93,47 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 14,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.calendar_today_outlined,
-                        color: AppColors.grey,
+                        color: AppColors.white,
                         size: 16,
                       ),
                       SizedBox(width: 6),
                       Text(
                         '2021',
-                        style: TextStyle(color: AppColors.grey, fontSize: 12),
+                        style: TextStyle(color: AppColors.white, fontSize: 12),
                       ),
                       SizedBox(width: 6),
                       SizedBox(
                         height: 20,
-                        child: VerticalDivider(color: AppColors.grey, width: 1),
+                        child: VerticalDivider(color: AppColors.white, width: 1),
                       ),
                       SizedBox(width: 6),
-                      Icon(Icons.access_time, color: AppColors.grey, size: 16),
+                      Icon(Icons.access_time, color: AppColors.white, size: 16),
                       SizedBox(width: 6),
                       Text(
                         '148 Minutes',
-                        style: TextStyle(color: AppColors.grey, fontSize: 12),
+                        style: TextStyle(color: AppColors.white, fontSize: 12),
                       ),
                       SizedBox(width: 6),
                       SizedBox(
                         height: 20,
-                        child: VerticalDivider(color: AppColors.grey, width: 1),
+                        child: VerticalDivider(color: AppColors.white, width: 1),
                       ),
                       SizedBox(width: 6),
                       Icon(
                         Icons.calendar_today_outlined,
-                        color: AppColors.grey,
+                        color: AppColors.white,
                         size: 16,
                       ),
                       SizedBox(width: 6),
                       Text(
                         'Action',
-                        style: TextStyle(color: AppColors.grey, fontSize: 12),
+                        style: TextStyle(color: AppColors.white, fontSize: 12),
                       ),
                       SizedBox(width: 6),
                     ],
@@ -169,6 +174,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ],
                   ),
                   Expanded(
+                    flex: 4,
                     child: TabBarView(
                       children: [
                         Padding(
