@@ -11,6 +11,7 @@ import 'package:movie_app_march26/home/presentations/widgets/custom_movies_grid.
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
 import 'package:movie_app_march26/search/presentation/controllers/search_cubit.dart';
 import 'package:movie_app_march26/search/presentation/ui_screens/search_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -54,13 +55,22 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 12),
             CustomTextForm(
               readOnly: true,
-              onTap: () {
+              onTap: () async{
                 print("tapped");
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    BlocProvider(
-                      create: (context) => SearchCubit(),
-                      child: SearchScreen(),
-                    ),));
+
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                List data = [];
+                data.add(pref.get("key"));
+                data.add(pref.get("id"));
+                data.add(pref.get("name"));
+                data.add(pref.get("is_login"));
+                data.add(pref.get("score"));
+                print(data);
+                // Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                //     BlocProvider(
+                //       create: (context) => SearchCubit(),
+                //       child: SearchScreen(),
+                //     ),));
               },
             ),
             SizedBox(height: 36),
@@ -104,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                         int pageViewIndex,) =>
                         GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(id:data[itemIndex].id.toString() ,),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[itemIndex] ,),));
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
