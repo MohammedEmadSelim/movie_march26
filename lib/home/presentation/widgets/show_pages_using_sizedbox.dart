@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
+import 'package:movie_app_march26/core/theme/widgets/custom_image_network.dart';
 import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 
 class show_pages_using_sizedbox extends StatelessWidget {
@@ -24,13 +25,9 @@ class show_pages_using_sizedbox extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.network(
-                  "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
-                  height: 220,
-                  width: 150,
-                  fit: BoxFit.fill,
-                ),
-              ),
+                // 220 h 
+                // 150 w
+                child: Custom_image_network(data: data,index : index, height: 220, width:150),     ),
               Positioned(
                 bottom: 0,
                 left: 10,

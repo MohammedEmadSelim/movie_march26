@@ -6,4 +6,7 @@ class Appcolor {
   static Color thir_color = Color(0xff3A3F47);
   static Color fort_color = Color(0xff67686D);
   static Color fiv_color = Color(0xff0296E5);
+  static Color six_color = Color(0xffFF8700);
+  static Color sev_color = Colors.amber;
+  static Color eigh_color = Colors.grey;
 }

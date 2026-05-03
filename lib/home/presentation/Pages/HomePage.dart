@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_march26/Search/presentation/pages/Search_page.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
 
@@ -39,13 +40,13 @@ class Homepage extends StatelessWidget {
   // ];
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: Scaffold(
-        backgroundColor: Appcolor.prim_color,
-        body: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 35),
-          child: Column(
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 35),
+      child: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          backgroundColor: Appcolor.prim_color,
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -58,7 +59,9 @@ class Homepage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15),
-              custom_text_field(text: 'Search', iconData: Icons.search),
+              custom_text_field(text: 'Search', iconData: Icons.search,on_tap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
+              },read_only: true,),
               SizedBox(height: 20),
               SizedBox(
                 height: 200,

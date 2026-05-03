@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/Splash/presentation/SplashScreen.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_march26/Splash/Pages/SplashScreen.dart';
+import 'package:movie_app_march26/Search/presentation/controller/cubit/search_cubit_cubit.dart';
 
 void main() {
   runApp(const MovieApp());
 }
+
 // {}
 // ctrl + shift + -
 class MovieApp extends StatelessWidget {
@@ -12,9 +14,12 @@ class MovieApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Splashscreen()
-      );
+    return BlocProvider(
+      create: (context) => SearchCubitCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Splashscreen(),
+      ),
+    );
   }
 }
