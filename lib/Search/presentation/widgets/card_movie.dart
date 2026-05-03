@@ -49,7 +49,7 @@ class Card_movie extends StatelessWidget {
               iconData: Icons.confirmation_number_outlined,
             ),
             custom_row_serach_page(
-              text: movie.releaseDate.substring(0,3) ?? '0.5',
+              text: movie.releaseDate,
               iconData: Icons.calendar_today_outlined,
             ),
             custom_row_serach_page(
