@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/core/theme/AppColor.dart';
+
 
 class custom_row_serach_page extends StatelessWidget {
   const custom_row_serach_page({

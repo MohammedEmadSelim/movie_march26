@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:movie_app_march26/details/pages/datails_page.dart';
 import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 
 class Custom_image_network extends StatelessWidget {
@@ -14,11 +15,21 @@ class Custom_image_network extends StatelessWidget {
   final BoxFit? fit;
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
-      height: height, 
-      width: width,
-      fit: fit,
+    return GestureDetector(
+      onTap: () {
+       Navigator.push(context, MaterialPageRoute(builder: (context) => DatailsPage()));
+      },
+      child: Image.network(
+        "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
+        height: height, 
+        width: width,
+        fit: fit,
+        errorBuilder: (context, error, stackTrace) => SizedBox(
+                height: height,
+                width: width,
+                child: Icon(Icons.error_outline),
+              ),
+      ),
     );
   }
 }

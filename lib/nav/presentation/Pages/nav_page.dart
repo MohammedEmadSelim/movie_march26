@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app_march26/Search/presentation/controller/cubit/search_cubit_cubit.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/Serach_widget.dart';
 import 'package:movie_app_march26/home/presentation/Pages/HomePage.dart';

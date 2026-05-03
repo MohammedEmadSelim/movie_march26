@@ -12,7 +12,6 @@ import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/U
 import 'package:movie_app_march26/home/presentation/controller/Up_coming_cubit/Up_coming_states.dart';
 import 'package:movie_app_march26/home/presentation/controller/nowplaying_cubit/now_playing_cubit.dart';
 import 'package:movie_app_march26/home/presentation/widgets/grid_view_custom_tabs.dart';
-import 'package:movie_app_march26/home/presentation/widgets/show_pages_using_CarouselSlider.dart';
 import 'package:movie_app_march26/home/presentation/widgets/show_pages_using_sizedbox.dart';
 
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';

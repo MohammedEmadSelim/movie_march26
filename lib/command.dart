@@ -219,3 +219,11 @@
 //     );
 //   }
 // }
+   // child: Image.network(
+          //   // 220 
+          //   // 250
+          //   "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
+          //   height: 220,
+          //   width: 250,
+          //   fit: BoxFit.cover,
+          // ),

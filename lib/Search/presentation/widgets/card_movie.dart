@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_march26/Search/presentation/widgets/custom_row_serachpage.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
+import 'package:movie_app_march26/core/theme/widgets/custom_image_network.dart';
 import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 
 class Card_movie extends StatelessWidget {
-  const Card_movie({super.key, required this.movie});
+  const Card_movie({super.key, required this.movie, required this.data});
   final MovieModel movie;
+  final List<MovieModel> data;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -13,17 +15,15 @@ class Card_movie extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(18),
-          child: Image.network(
-            "https://image.tmdb.org/t/p/w500${movie.posterPath}",
-            height: 120,
-            width: 95,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => SizedBox(
-              height: 120,
-              width: 95,
-              child: Icon(Icons.error_outline),
-            ),
-          ),
+          child:
+          Custom_image_network(data: data, index: data.indexOf(movie), height: 120, width: 95)
+          //  Image.network(
+          //   "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+          //   height: 120,
+          //   width: 95,
+          //   fit: BoxFit.cover,
+            
+          // ),
         ),
         SizedBox(width: 5,),
         Column(

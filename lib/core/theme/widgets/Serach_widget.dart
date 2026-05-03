@@ -54,7 +54,7 @@ class Serach_widget extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     separatorBuilder: (context, index) =>
                         SizedBox(height: 15),
-                    itemBuilder: (context, index) => Card_movie(movie: moveies[index],),
+                    itemBuilder: (context, index) => Card_movie(movie: moveies[index],data: moveies,),
                   ),
                 );
               } else if (state is SearchCubitFailure) {
