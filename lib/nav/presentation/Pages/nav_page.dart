@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_march26/WatchList/Pages/watch_list.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/Serach_widget.dart';
 import 'package:movie_app_march26/home/presentation/Pages/HomePage.dart';
@@ -37,7 +38,7 @@ class _NavPageState extends State<NavPage> {
       padding: const EdgeInsets.only(top: 40),
       child: Serach_widget(),
     ),
-    Text('dddddddddddddd'),
+    WatchList(),
   ];
 
   int current_index = 0;

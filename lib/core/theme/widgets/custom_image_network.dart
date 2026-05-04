@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/details/pages/datails_page.dart';
+import 'package:movie_app_march26/details/presentation/pages/datails_page.dart';
 import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 
 class Custom_image_network extends StatelessWidget {
@@ -17,7 +17,7 @@ class Custom_image_network extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) => DatailsPage()));
+       Navigator.push(context, MaterialPageRoute(builder: (context) => DatailsPage(id: data[index].id,)));
       },
       child: Image.network(
         "https://image.tmdb.org/t/p/w500${data[index].posterPath}",

@@ -9,6 +9,7 @@ class custom_row_serach_page extends StatelessWidget {
 final String text;
 final IconData iconData;
 final Color? color;
+
   @override
   Widget build(BuildContext context) {
     return Row(
