@@ -9,4 +9,6 @@ class Appcolor {
   static Color six_color = Color(0xffFF8700);
   static Color sev_color = Colors.amber;
   static Color eigh_color = Colors.grey;
+  static Color red_color = Colors.red;
+  static Color green_color = Colors.green;
 }

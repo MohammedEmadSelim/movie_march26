@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
 import 'package:movie_app_march26/details/data/models/Details_movie_model.dart';
 import 'package:movie_app_march26/details/presentation/controller/cubit/details_cubit_cubit.dart';
+import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
+
 import 'package:movie_app_march26/nav/presentation/widgets/tab_name_tabs.dart';
 
 class DatailsPage extends StatefulWidget {
-  const DatailsPage({super.key, required this.id});
+  const DatailsPage({super.key, required this.id,required this.movie});
 final int id;
-
+final MovieModel movie;
   @override
   State<DatailsPage> createState() => _DatailsPageState();
 }
@@ -28,6 +31,17 @@ class _DatailsPageState extends State<DatailsPage> {
       child: Scaffold(
         backgroundColor: Appcolor.prim_color,
         appBar: AppBar(
+          leading: IconButton(
+          icon: Icon(
+            Icons
+                .arrow_back_ios_new, 
+            color: Appcolor.seco_color, 
+            size: 18, 
+          ),
+          onPressed: () {
+            Navigator.pop(context); 
+          },
+        ),
           centerTitle: true,
           backgroundColor: Appcolor.prim_color,
           title: Text(
@@ -38,12 +52,27 @@ class _DatailsPageState extends State<DatailsPage> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(Icons.bookmark, size: 30, color: Colors.white),
+               actions: [
+          GestureDetector(
+            onTap: () {
+              if (moviesBox.containsKey(widget.id)) {
+                moviesBox.delete(widget.id);
+              } else {
+                moviesBox.put(widget.movie.id, widget.movie);
+              }
+              setState(() {});
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Icon(
+                moviesBox.containsKey(widget.movie.id)
+                    ? Icons.bookmark
+                    : Icons.bookmark_border,
+                color: Appcolor.seco_color,
+              ),
             ),
-          ],
+          ),
+        ],
         ),
         body: BlocBuilder<DetailsCubitCubit, DetailsCubitState>(
           builder: (context, state) {
@@ -64,11 +93,17 @@ class _DatailsPageState extends State<DatailsPage> {
   }
 }
 
-class Show_details_in_details_page extends StatelessWidget {
+class Show_details_in_details_page extends StatefulWidget {
   const Show_details_in_details_page({
     super.key, required this.deta,
   });
 final MovieDetailsModel deta;
+
+  @override
+  State<Show_details_in_details_page> createState() => _Show_details_in_details_pageState();
+}
+
+class _Show_details_in_details_pageState extends State<Show_details_in_details_page> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -82,7 +117,7 @@ final MovieDetailsModel deta;
                         bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       ),
-                      child: Image.network( "https://image.tmdb.org/t/p/w500${deta.backdropPath}"),
+                      child: Image.network( "https://image.tmdb.org/t/p/w500${widget.deta.backdropPath}"),
                     ),
                     Positioned(
                       bottom: 10,
@@ -107,7 +142,7 @@ final MovieDetailsModel deta;
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              '${(deta.voteAverage).toString().substring(0, 3)}',
+                              '${(widget.deta.voteAverage).toString().substring(0, 3)}',
                               style: const TextStyle(
                                 color: Color(0xFFFF9900),
                                 fontSize: 12,
@@ -134,7 +169,7 @@ final MovieDetailsModel deta;
                       child: Text(
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,                      
-                        ' '+deta.releaseDate.toString().substring(0, 4),
+                        ' '+widget.deta.releaseDate.toString().substring(0, 3),
                         style: TextStyle(
                           color: Appcolor.fort_color,
                           fontSize: 15,
@@ -158,7 +193,7 @@ final MovieDetailsModel deta;
                     Text(
                         overflow: TextOverflow.ellipsis,
                       maxLines: 1, 
-                       deta.runtime.toString() + ' Minutes',
+                       widget.deta.runtime.toString() + ' Minutes',
                       style: TextStyle(
                         color: Appcolor.fort_color,
                         fontSize: 15,
@@ -182,7 +217,7 @@ final MovieDetailsModel deta;
                       child: Text(
                           overflow: TextOverflow.ellipsis,
                         maxLines: 1, 
-                        ' ${deta.title}',
+                        ' ${widget.deta.title}',
                         style: TextStyle(
                           color: Appcolor.fort_color,
                           fontSize: 15,
@@ -218,7 +253,7 @@ final MovieDetailsModel deta;
                     Text(
                       overflow: TextOverflow.ellipsis,
                       maxLines:8, 
-                      '${deta.overview}',
+                      '${widget.deta.overview}',
                     style: TextStyle(color: Colors.white),
                     ),
                     Text('From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.'),
@@ -238,14 +273,14 @@ final MovieDetailsModel deta;
                   ClipRRect(
                     borderRadius: BorderRadiusGeometry.circular(15),
                     child: Image.network(
-                      'https://image.tmdb.org/t/p/w500${deta.posterPath}',
+                      'https://image.tmdb.org/t/p/w500${widget.deta.posterPath}',
                       height: 120,
                       width: 90,
                     ),
                   ),
                   SizedBox(width: 6),
                   Text(
-                    '${deta.title}',
+                    '${widget.deta.title}',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,

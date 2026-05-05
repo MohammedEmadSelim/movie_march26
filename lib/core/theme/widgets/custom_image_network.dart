@@ -17,7 +17,7 @@ class Custom_image_network extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) => DatailsPage(id: data[index].id,)));
+       Navigator.push(context, MaterialPageRoute(builder: (context) => DatailsPage(id: data[index].id,movie: data[index],)));
       },
       child: Image.network(
         "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
