@@ -10,34 +10,8 @@ import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+ const HomeScreen({super.key});
 
-  final List<String> imageUrls = [
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
-    "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759",
-    "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
-    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
-    "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759",
-    "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
-    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
-    "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759",
-    "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
-    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +33,12 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              CustomTextFormField(),
+              CustomTextFormField(
+                onTap: (){
+
+                },
+                readOnly: true,
+              ),
               SizedBox(height: 30),
               BlocBuilder<CarouselCubit, CaroselState>(
                 builder: (context, state) {
