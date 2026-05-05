@@ -39,6 +39,7 @@ class SearchWidget extends StatelessWidget {
                   child: MovieListView(movies: movies),
                 );
               }
+
               if(state is SearchFailure){
                 return Center(
                       child: Text(
