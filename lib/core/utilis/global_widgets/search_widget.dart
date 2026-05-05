@@ -39,19 +39,18 @@ class SearchWidget extends StatelessWidget {
                   child: MovieListView(movies: movies),
                 );
               }
-
-              if(state is SearchFailure){
-                return Center(
-                      child: Text(
-                        state.message,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    );
-              }
+              // if(state is SearchFailure){
+              //   return Center(
+              //         child: Text(
+              //           state.message,
+              //           style: TextStyle(
+              //             color: AppColors.white,
+              //             fontWeight: FontWeight.w700,
+              //             fontSize: 16,
+              //           ),
+              //         ),
+              //       );
+              // }
               return Lottie.asset('assets/animation/6793c5a5-0795-4193-92a3-5f3f6dd10316.json');
             },
           ),

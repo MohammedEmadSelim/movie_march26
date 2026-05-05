@@ -8,4 +8,5 @@ class AppColors{
   static Color blue = Color(0xff0296E5);
   static Color orange = Color(0xffFF8700);
   static Color green = Color(0xff059d0d);
+  static Color red = Color(0xffff0000);
 }

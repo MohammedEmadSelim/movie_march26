@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
 import 'package:movie_app_march26/home/data/models/movie_model.dart';
 
@@ -97,8 +98,23 @@ class _MovieListItemState extends State<MovieListView> {
             ),
             Spacer(),
             GestureDetector(
-              onTap: () {},
-              child: Icon(Icons.add_circle, color: AppColors.green),
+              onTap: () {
+                if(moviesBox.containsKey(movie.id)){
+                  moviesBox.delete(movie.id);
+                }else{
+                  moviesBox.put(movie.id, movie);
+                }
+                setState(() {});
+              },
+              child: Icon(
+                moviesBox.containsKey(movie.id)
+                    ?Icons.remove_circle
+                    :Icons.add_circle_outline,
+                color: moviesBox.containsKey(movie.id)
+                    ?AppColors.red
+                    :AppColors.green
+                  ,
+              ),
             ),
             SizedBox(width: 10),
           ],

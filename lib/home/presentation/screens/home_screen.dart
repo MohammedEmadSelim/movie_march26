@@ -2,12 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
+import 'package:movie_app_march26/details/presentation/screens/details_screen.dart';
 import 'package:movie_app_march26/home/presentation/controllers/carosel_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/now_playing_cubit/now_playing_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/popular_cubit/popular_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/top_rated_cubit/top_rated_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/up_coming_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
  const HomeScreen({super.key});
@@ -34,9 +36,19 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 30),
               CustomTextFormField(
-                onTap: (){
+                onTap: () async {
+                  print("tapped");
 
-                },
+                  SharedPreferences pref = await SharedPreferences
+                      .getInstance();
+                  List data = [];
+                  data.add(pref.get("key"));
+                  data.add(pref.get("id"));
+                  data.add(pref.get("name"));
+                  data.add(pref.get("is_login"));
+                  data.add(pref.get("score"));
+                  print(data);
+                }  ,
                 readOnly: true,
               ),
               SizedBox(height: 30),
@@ -61,13 +73,20 @@ class HomeScreen extends StatelessWidget {
                             BuildContext context,
                             int itemIndex,
                             int pageViewIndex,
-                          ) => ClipRRect(
-                            borderRadius: BorderRadiusGeometry.circular(16),
-                            child: Image.network(
-                              'https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}',
-                              height: 250,
-                              width: 180,
-                              fit: BoxFit.cover,
+                          ) => GestureDetector(
+                            onTap: (){
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[itemIndex] ,),));
+
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(16),
+                              child: Image.network(
+                                'https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}',
+                                height: 250,
+                                width: 180,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                     );

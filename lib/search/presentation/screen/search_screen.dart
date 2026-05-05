@@ -10,7 +10,24 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.navy,
-      appBar: AppBar(backgroundColor: AppColors.navy),
+      appBar: AppBar(
+        backgroundColor: AppColors.navy,
+        iconTheme: IconThemeData(color: AppColors.white),
+        title: Text(
+          "Search",
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 21,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            child: Icon(Icons.error_outline, color: AppColors.white, size: 26),
+          ),
+        ],
+      ),
       body: SearchWidget(),
     );
   }

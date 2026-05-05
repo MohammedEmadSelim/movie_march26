@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app_march26/details/details/models/movie_details_model.dart';
+import 'package:movie_app_march26/details/data/models/movie_details_model.dart';
 
-
-import '../../../home/data/models/movie_model.dart';
 
 part 'details_state.dart';
 

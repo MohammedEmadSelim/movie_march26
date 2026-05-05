@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:movie_app_march26/details/presentation/controller/details_cubit.dart';
+import 'core/cache/hive_boxes.dart';
+import 'home/data/models/movie_model.dart';
 import 'splash/presentation/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  // register the generated adapter
+  // Hive.registerAdapter(MovieModel);
+// open the box and pass the value to global Box
+  moviesBox = await Hive.openBox<MovieModel>("movie_box");
   runApp(const MyApp());
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return BlocProvider(
+      create: (context) => DetailsCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
 
-      home: SplachScreen() ,
+        home: SplachScreen(),
+      ),
     );
   }
 }

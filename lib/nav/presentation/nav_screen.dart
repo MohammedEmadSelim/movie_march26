@@ -7,6 +7,7 @@ import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/
 import 'package:movie_app_march26/home/presentation/screens/home_screen.dart';
 import 'package:movie_app_march26/search/presentation/controller/search_cubit.dart';
 import 'package:movie_app_march26/search/presentation/screen/search_screen.dart';
+import 'package:movie_app_march26/watch_list/presentation/screen/watch_list_screen.dart';
 import '../../home/presentation/controllers/now_playing_cubit/now_playing_cubit.dart';
 import '../../home/presentation/controllers/popular_cubit/popular_cubit.dart';
 import '../../home/presentation/controllers/top_rated_cubit/top_rated_cubit.dart';
@@ -47,7 +48,8 @@ class _NavScreenState extends State<NavScreen> {
   create: (context) => SearchCubit(),
   child: SearchScreen(),
 ),
-    DetailsScreen(),
+    // DetailsScreen(),
+    WatchListScreen()
   ];
   int currentIndex = 0;
 
