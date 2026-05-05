@@ -49,56 +49,81 @@ class _WatchListState extends State<WatchList> {
                 itemCount: moviesBox.length,
                 itemBuilder: (context, index) {
                   var movie = moviesBox.getAt(index);
-                  return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child:
-          Custom_image_network(data: moviesBox.values.toList(), index: index, height: 120, width: 95)
-          //  Image.network(
-          //   "https://image.tmdb.org/t/p/w500${movie.posterPath}",
-          //   height: 120,
-          //   width: 95,
-          //   fit: BoxFit.cover,
-            
-          // ),
-        ),
-        SizedBox(width: 5,),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 195,
-              child: Text(
-               ' ${movie!.title}',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 16, color: Appcolor.seco_color),
-              ),
-            ),
-            SizedBox(height: 3),
-            custom_row_serach_page(
-              text: movie.voteAverage.toString().substring(0,3),
-              color: Appcolor.six_color,
-              iconData: Icons.star_border,
-            ),
-            custom_row_serach_page(
-              text: 'Action',
-              iconData: Icons.confirmation_number_outlined,
-            ),
-            custom_row_serach_page(
-              text: movie.releaseDate,
-              iconData: Icons.calendar_today_outlined,
-            ),
-            custom_row_serach_page(
-              text: '${movie.voteCount+10} minutes',
-              iconData: Icons.access_time,
-            ),
-          ],
-        ),
-      ],
-    );
+                  return Stack(
+                    children: [
+                      Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(18),
+                                child:
+                                Custom_image_network(data: moviesBox.values.toList(), index: index, height: 120, width: 95)
+                                //  Image.network(
+                                //   "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                                //   height: 120,
+                                //   width: 95,
+                                //   fit: BoxFit.cover,
+                                  
+                                // ),
+                              ),
+                              SizedBox(width: 5,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 195,
+                                    child: Text(
+                                     ' ${movie!.title}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 16, color: Appcolor.seco_color),
+                                    ),
+                                  ),
+                                  SizedBox(height: 3),
+                                  custom_row_serach_page(
+                                    text: movie.voteAverage.toString().substring(0,3),
+                                    color: Appcolor.six_color,
+                                    iconData: Icons.star_border,
+                                  ),
+                                  custom_row_serach_page(
+                                    text: 'Action',
+                                    iconData: Icons.confirmation_number_outlined,
+                                  ),
+                                  custom_row_serach_page(
+                                    text: movie.releaseDate,
+                                    iconData: Icons.calendar_today_outlined,
+                                  ),
+                                  custom_row_serach_page(
+                                    text: '${movie.voteCount+10} minutes',
+                                    iconData: Icons.access_time,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                    Positioned(
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (moviesBox.containsKey(movie.id)) {
+                              moviesBox.delete(movie.id);
+                            } else {
+                              moviesBox.put(movie.id, movie);
+                            }
+                            setState(() {});
+                          },
+                          child: Icon(size: 20,
+                            moviesBox.containsKey(movie.id)
+                                ? Icons.remove_circle
+                                : Icons.add_circle_outline,
+                            color: moviesBox.containsKey(movie.id)
+                                ? Appcolor.red_color
+                                : Appcolor.green_color,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
                   },
               ),
             ),
