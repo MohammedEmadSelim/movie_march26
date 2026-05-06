@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/WatchList/Pages/watch_list.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/Serach_widget.dart';
+import 'package:movie_app_march26/details/presentation/controller/cubit/review_det_cubit_cubit.dart';
 import 'package:movie_app_march26/home/presentation/Pages/HomePage.dart';
 import 'package:movie_app_march26/home/presentation/controller/Carousel_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controller/Popular_cubit/popular_cubit_cubit.dart';

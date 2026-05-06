@@ -5,6 +5,7 @@ import 'package:movie_app_march26/Splash/Pages/SplashScreen.dart';
 import 'package:movie_app_march26/Search/presentation/controller/cubit/search_cubit_cubit.dart';
 import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/details/presentation/controller/cubit/details_cubit_cubit.dart';
+import 'package:movie_app_march26/details/presentation/controller/cubit/review_det_cubit_cubit.dart';
 import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 
 void main()async {
@@ -35,6 +36,9 @@ class MovieApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => SearchCubitCubit()),
         BlocProvider(create: (context) => DetailsCubitCubit()),
+         BlocProvider(
+          create: (context) => ReviewDetCubitCubit(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
