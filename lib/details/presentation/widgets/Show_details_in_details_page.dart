@@ -6,8 +6,11 @@ import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
 import 'package:movie_app_march26/details/data/models/Details_movie_model.dart';
 import 'package:movie_app_march26/details/data/models/ReviewResponseModel%20.dart';
+import 'package:movie_app_march26/details/data/models/cast_model.dart';
+import 'package:movie_app_march26/details/presentation/controller/cubit/cast_cubit_cubit.dart';
 import 'package:movie_app_march26/details/presentation/controller/cubit/review_det_cubit_cubit.dart';
 import 'package:movie_app_march26/details/presentation/widgets/ReviewCard.dart';
+import 'package:movie_app_march26/details/presentation/widgets/custom_cast_details.dart';
 import 'package:movie_app_march26/details/presentation/widgets/tap_about.dart';
 import 'package:movie_app_march26/details/presentation/widgets/tap_review.dart';
 import 'package:movie_app_march26/home/presentation/widgets/tab_name_tabs.dart';
@@ -86,7 +89,7 @@ class _Show_details_in_details_pageState
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    ' ' + widget.deta.releaseDate.toString().substring(0, 3),
+                    ' ' + widget.deta.releaseDate.toString().substring(0, 4),
                     style: TextStyle(color: Appcolor.fort_color, fontSize: 15),
                   ),
                 ),
@@ -153,26 +156,47 @@ class _Show_details_in_details_pageState
                         'No Inforamation about this filem',
                   ),
                   tap_review(),
-                  GridView.builder(
-                    padding: const EdgeInsets.all(10),
-                    // 1. Define the structure
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Number of columns
-                          crossAxisSpacing: 50, // Space between columns
-                          mainAxisSpacing: 10, // Space between rows
-                          childAspectRatio:
-                              0.8, // Width / Height ratio of each tile
-                        ),
-                    // 2. Define the number of items
-                    itemCount: 3,
-                    // 3. Build the actual widget for each index
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          ClipRRect()
-                        ],
+                  BlocBuilder<CastCubitCubit, CastCubitState>(
+                    builder: (context, state) {
+                      if (state is CatsCubitLoading) {
+                        return loading_circler();
+                      } else if (state is CastCubitSuccess) {
+                        List<Cast> Casts = state.castses;
+                        if (Casts.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'No Casts found.',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          );
+                        }
+                        // تم حذف الـ SingleChildScrollView والـ Column والـ Expanded الزيادة
+                        return  GridView.builder(
+                        padding: const EdgeInsets.all(10),
+                        // 1. Define the structure
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // Number of columns
+                              crossAxisSpacing: 40, // Space between columns
+                              mainAxisSpacing: 10, // Space between rows
+                            ),
+                        // 2. Define the number of items
+                        itemCount: Casts.length,
+                        // 3. Build the actual widget for each index
+                        itemBuilder: (context, index) {
+                          return custom_cast_details(name: Casts[index].name,image: Casts[index].profilePath,);
+                        },
                       );
+                      } else if (state is CastCubitFailure) {
+                        return Center(
+                          child: Text(
+                            state.error,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
                   ),
                 ],

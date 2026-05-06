@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';
 import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
+import 'package:movie_app_march26/details/presentation/controller/cubit/cast_cubit_cubit.dart';
 
 import 'package:movie_app_march26/details/presentation/controller/cubit/details_cubit_cubit.dart';
 import 'package:movie_app_march26/details/presentation/controller/cubit/review_det_cubit_cubit.dart';
@@ -24,6 +25,7 @@ class _DatailsPageState extends State<DatailsPage> {
   void initState() {
     context.read<DetailsCubitCubit>().get_details(widget.id.toString());
     context.read<ReviewDetCubitCubit>().getReviews(widget.id.toString());
+    context.read<CastCubitCubit>().get_details(widget.id.toString());
     super.initState();
   }
 

@@ -4,6 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:movie_app_march26/Splash/Pages/SplashScreen.dart';
 import 'package:movie_app_march26/Search/presentation/controller/cubit/search_cubit_cubit.dart';
 import 'package:movie_app_march26/core/cache/hive_boxes.dart';
+import 'package:movie_app_march26/details/presentation/controller/cubit/cast_cubit_cubit.dart';
 import 'package:movie_app_march26/details/presentation/controller/cubit/details_cubit_cubit.dart';
 import 'package:movie_app_march26/details/presentation/controller/cubit/review_det_cubit_cubit.dart';
 import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
@@ -39,6 +40,8 @@ class MovieApp extends StatelessWidget {
          BlocProvider(
           create: (context) => ReviewDetCubitCubit(),
         ),
+        BlocProvider(create: (context) => CastCubitCubit()),
+      
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
