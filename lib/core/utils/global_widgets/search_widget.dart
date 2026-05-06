@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
-import 'package:movie_app_march26/core/utilis/global_widgets/movie_list_item.dart';
+import 'package:movie_app_march26/core/utils/global_widgets/movie_list_item.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
 import 'package:movie_app_march26/search/presentation/controller/search_cubit.dart';
 
@@ -39,18 +39,18 @@ class SearchWidget extends StatelessWidget {
                   child: MovieListView(movies: movies),
                 );
               }
-              // if(state is SearchFailure){
-              //   return Center(
-              //         child: Text(
-              //           state.message,
-              //           style: TextStyle(
-              //             color: AppColors.white,
-              //             fontWeight: FontWeight.w700,
-              //             fontSize: 16,
-              //           ),
-              //         ),
-              //       );
-              // }
+              if(state is SearchFailure){
+                return Center(
+                      child: Text(
+                        state.message,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    );
+              }
               return Lottie.asset('assets/animation/6793c5a5-0795-4193-92a3-5f3f6dd10316.json');
             },
           ),

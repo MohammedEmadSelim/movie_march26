@@ -9,7 +9,6 @@ import 'package:movie_app_march26/home/presentation/controllers/popular_cubit/po
 import 'package:movie_app_march26/home/presentation/controllers/top_rated_cubit/top_rated_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/up_coming_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_form_field.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
  const HomeScreen({super.key});
@@ -36,19 +35,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 30),
               CustomTextFormField(
-                onTap: () async {
-                  print("tapped");
 
-                  SharedPreferences pref = await SharedPreferences
-                      .getInstance();
-                  List data = [];
-                  data.add(pref.get("key"));
-                  data.add(pref.get("id"));
-                  data.add(pref.get("name"));
-                  data.add(pref.get("is_login"));
-                  data.add(pref.get("score"));
-                  print(data);
-                }  ,
                 readOnly: true,
               ),
               SizedBox(height: 30),
@@ -168,11 +155,18 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             itemCount: data.length,
                             padding: EdgeInsets.only(top: 8),
-                            itemBuilder: (context, index) => ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
-                                fit: BoxFit.cover,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: (){
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[index] ,),));
+
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           );
@@ -216,11 +210,18 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             itemCount: data.length,
                             padding: EdgeInsets.only(top: 8),
-                            itemBuilder: (context, index) => ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
-                                fit: BoxFit.cover,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: (){
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[index] ,),));
+
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           );
@@ -264,11 +265,18 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             itemCount: data.length,
                             padding: EdgeInsets.only(top: 8),
-                            itemBuilder: (context, index) => ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
-                                fit: BoxFit.cover,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: (){
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[index] ,),));
+
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           );
@@ -312,11 +320,18 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             itemCount: data.length,
                             padding: EdgeInsets.only(top: 8),
-                            itemBuilder: (context, index) => ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
-                                fit: BoxFit.cover,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: (){
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[index] ,),));
+
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           );

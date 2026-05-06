@@ -26,6 +26,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return Scaffold(
       backgroundColor: AppColors.navy,
       appBar: AppBar(
+        leading: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios_new_rounded,color: AppColors.white,)),
         backgroundColor: AppColors.navy,
         centerTitle: true,
         title: Text(
@@ -109,7 +114,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           child: SizedBox(
                             width: 210,
                             child: Text(
-                              'Spiderman No Way Home',
+                              movie.title.toString(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -132,7 +137,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        '2021',
+                        movie.releaseDate.toString(),
                         style: TextStyle(color: AppColors.white, fontSize: 12),
                       ),
                       SizedBox(width: 6),
@@ -147,7 +152,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       Icon(Icons.access_time, color: AppColors.white, size: 16),
                       SizedBox(width: 6),
                       Text(
-                        '148 Minutes',
+                        '${movie.runtime.toString()} minutes',
                         style: TextStyle(color: AppColors.white, fontSize: 12),
                       ),
                       SizedBox(width: 6),
@@ -166,7 +171,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        'Action',
+                        movie.status.toString(),
                         style: TextStyle(color: AppColors.white, fontSize: 12),
                       ),
                       SizedBox(width: 6),

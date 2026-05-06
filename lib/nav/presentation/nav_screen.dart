@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/colors.dart';
-import 'package:movie_app_march26/details/presentation/screens/details_screen.dart';
 import 'package:movie_app_march26/home/presentation/controllers/carosel_cubit.dart';
 import 'package:movie_app_march26/home/presentation/controllers/up_coming_cubit/up_coming_cubit.dart';
 import 'package:movie_app_march26/home/presentation/screens/home_screen.dart';
@@ -21,6 +20,11 @@ class NavScreen extends StatefulWidget {
 }
 
 class _NavScreenState extends State<NavScreen> {
+  List<String>title = [
+    '',
+    'Search',
+    'Watch list'
+  ];
   List<Widget> screens = [
     MultiBlocProvider(
       providers: [
@@ -56,6 +60,16 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 30,
+        backgroundColor: AppColors.navy,
+        centerTitle: true,
+        title: Text(title[currentIndex],style: TextStyle(
+          color: AppColors.white,
+          fontSize: 16,
+          fontWeight: FontWeight(600)
+        ),),
+      ),
       backgroundColor: AppColors.navy,
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
