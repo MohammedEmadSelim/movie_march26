@@ -12,13 +12,13 @@ import 'package:movie_app_march26/home/data/modules/Movie_model.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // 1. تعمل init للـ Hive
+  
   await Hive.initFlutter();
   
-  // 2. تسجل الـ Adapter (لو عامل Model)
+  
   Hive.registerAdapter(MovieModelAdapter());
   
-  // 3. تفتح الـ Box وتخزن قيمته في المتغير اللي أنت معرفه
+
   moviesBox = await Hive.openBox<MovieModel>('movies_box'); 
 
   runApp(const MovieApp());
@@ -26,8 +26,7 @@ void main()async {
 
 }
 
-// {}
-// ctrl + shift + -
+
 class MovieApp extends StatelessWidget {
   const MovieApp({super.key});
 
