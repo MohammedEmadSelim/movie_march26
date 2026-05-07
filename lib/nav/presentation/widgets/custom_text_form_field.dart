@@ -12,6 +12,10 @@ final bool? readOnly ;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: AppColors.white,
+      style: TextStyle(
+        color: AppColors.white
+      ),
       onChanged: onChanged,
       onTap: onTap,
       readOnly: readOnly!,

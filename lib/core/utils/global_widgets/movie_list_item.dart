@@ -25,6 +25,7 @@ class _MovieListItemState extends State<MovieListView> {
               borderRadius: BorderRadiusGeometry.circular(15),
               child: Image.network(
                 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                errorBuilder: (context, error, stackTrace) => SizedBox(width: 95,height: 120,child: Icon(Icons.movie,color: AppColors.white,size: 45,),),
                 width: 95,
                 height: 120,
                 fit: BoxFit.cover,

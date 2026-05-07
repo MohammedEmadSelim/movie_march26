@@ -52,7 +52,6 @@ class _NavScreenState extends State<NavScreen> {
   create: (context) => SearchCubit(),
   child: SearchScreen(),
 ),
-    // DetailsScreen(),
     WatchListScreen()
   ];
   int currentIndex = 0;
