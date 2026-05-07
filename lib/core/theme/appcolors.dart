@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppColors{
   static Color navy = Color(0xff242A32);
   static Color white = Color(0xffFFFFFF);
@@ -7,4 +9,6 @@ class AppColors{
   static Color grey2 = Color(0xff67686D);
   static Color blue = Color(0xff0296E5);
   static Color orange = Color(0xffFF8700);
+  static Color red = Colors.red;
+  static Color green = Colors.green;
 }

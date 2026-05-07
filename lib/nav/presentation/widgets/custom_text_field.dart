@@ -3,16 +3,20 @@ import 'package:movie_app_march26/core/theme/appcolors.dart';
 
 class CustomTextForm extends StatelessWidget {
   const CustomTextForm({
-    super.key,  this.controller, this.readOnly = false, this.onTap,
+    super.key,  this.controller, this.readOnly = false, this.onTap,this.onChanged
   });
   final TextEditingController? controller ;
   final bool? readOnly ;
   final void Function()? onTap;
-
+  final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller:controller ,
+      onChanged: onChanged,
+      style: TextStyle(
+        color: AppColors.white,
+      ),
       decoration: InputDecoration(
           fillColor: AppColors.grey,
           filled: true,

@@ -9,6 +9,8 @@ import 'package:movie_app_march26/home/presentations/controller/popular/popular_
 import 'package:movie_app_march26/home/presentations/controller/topRated/top_rated_cubit.dart';
 import 'package:movie_app_march26/home/presentations/controller/upComing/up_coming_cubit.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
+import 'package:movie_app_march26/search/presentation/controller/search/search_cubit.dart';
+import 'package:movie_app_march26/search/presentation/screens/search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -34,27 +36,13 @@ class HomeScreen extends StatelessWidget {
             CustomTextForm(
               readOnly: true,
               onTap: () {
-                print("tapped");
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> BlocProvider(
+  create: (context) => SearchCubit(),
+  child: SearchScreen(),
+)));
               },
             ),
             SizedBox(height: 36),
-            // SizedBox(
-            //   height: 300,
-            //   child: ListView.separated(
-            //     separatorBuilder: (context, index) => SizedBox(width: 18),
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: imageUrls.length,
-            //     itemBuilder: (context, index) => ClipRRect(
-            //       borderRadius: BorderRadius.circular(16),
-            //       child: Image.network(
-            //         imageUrls[index],
-            //         height: 250,
-            //         width: 180,
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             BlocBuilder<CarouselCubit, CarouselState>(
               builder: (context, state) {
                 print("state==========>$state");
@@ -89,8 +77,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                           onTap: (){
                             print(data[itemIndex].id);
-                            var movie_id = data[itemIndex].id;
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie_id: movie_id.toString(),)));
+                            var movie = data[itemIndex];
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie: movie,)));
                           },
                         ),
                   );
@@ -183,15 +171,22 @@ class HomeScreen extends StatelessWidget {
                             childAspectRatio: 2 / 3,
                           ),
                           itemBuilder: (context, index) =>
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  "https://image.tmdb.org/t/p/w500${data[index]
-                                      .posterPath}",
-                                  height: 250,
-                                  width: 180,
-                                  fit: BoxFit.cover,
+                              GestureDetector(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500${data[index]
+                                        .posterPath}",
+                                    height: 250,
+                                    width: 180,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
+                                onTap: (){
+                                  print(data[index].id);
+                                  var movie = data[index];
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie: movie,)));
+                                },
                               ),
                           itemCount: data.length,
                         );
@@ -233,15 +228,22 @@ class HomeScreen extends StatelessWidget {
                             childAspectRatio: 2 / 3,
                           ),
                           itemBuilder: (context, index) =>
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  "https://image.tmdb.org/t/p/w500${data[index]
-                                      .posterPath}",
-                                  height: 250,
-                                  width: 180,
-                                  fit: BoxFit.cover,
+                              GestureDetector(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500${data[index]
+                                        .posterPath}",
+                                    height: 250,
+                                    width: 180,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
+                                onTap: (){
+                                  print(data[index].id);
+                                  var movie = data[index];
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie: movie,)));
+                                },
                               ),
                           itemCount: data.length,
                         );
@@ -283,15 +285,22 @@ class HomeScreen extends StatelessWidget {
                             childAspectRatio: 2 / 3,
                           ),
                           itemBuilder: (context, index) =>
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  "https://image.tmdb.org/t/p/w500${data[index]
-                                      .posterPath}",
-                                  height: 250,
-                                  width: 180,
-                                  fit: BoxFit.cover,
+                              GestureDetector(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500${data[index]
+                                        .posterPath}",
+                                    height: 250,
+                                    width: 180,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
+                                onTap: (){
+                                  print(data[index].id);
+                                  var movie = data[index];
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie: movie,)));
+                                },
                               ),
                           itemCount: data.length,
                         );
@@ -333,15 +342,22 @@ class HomeScreen extends StatelessWidget {
                             childAspectRatio: 2 / 3,
                           ),
                           itemBuilder: (context, index) =>
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  "https://image.tmdb.org/t/p/w500${data[index]
-                                      .posterPath}",
-                                  height: 250,
-                                  width: 180,
-                                  fit: BoxFit.cover,
+                              GestureDetector(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500${data[index]
+                                        .posterPath}",
+                                    height: 250,
+                                    width: 180,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
+                                onTap: (){
+                                  print(data[index].id);
+                                  var movie = data[index];
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailesScreen(movie: movie,)));
+                                },
                               ),
                           itemCount: data.length,
                         );

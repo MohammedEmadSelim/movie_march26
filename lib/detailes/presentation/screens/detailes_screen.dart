@@ -1,15 +1,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
 import 'package:movie_app_march26/detailes/presentation/controller/movie_cast/cast_cubit.dart';
 import 'package:movie_app_march26/detailes/presentation/controller/movie_details/details_cubit.dart';
 import 'package:movie_app_march26/detailes/presentation/controller/movie_reviews/reviews_cubit.dart';
+import 'package:movie_app_march26/home/data/models/movie_model.dart';
 
 class DetailesScreen extends StatefulWidget {
-   DetailesScreen({super.key, required this.movie_id});
+   DetailesScreen({super.key, required this.movie});
 
-   final String movie_id;
+   //final String movie_id;
+   final MovieModel movie;
 
   @override
   State<DetailesScreen> createState() => _DetailesScreenState();
@@ -19,9 +22,9 @@ class _DetailesScreenState extends State<DetailesScreen> {
 
   @override
   void initState() {
-    context.read<DetailsCubit>().DetailsMovies(widget.movie_id);
-    context.read<ReviewsCubit>().MovieReviews(widget.movie_id);
-    context.read<CastCubit>().MovieCast(widget.movie_id);
+    context.read<DetailsCubit>().DetailsMovies(widget.movie.id);
+    context.read<ReviewsCubit>().MovieReviews(widget.movie.id);
+    context.read<CastCubit>().MovieCast(widget.movie.id);
     super.initState();
   }
   @override
@@ -42,8 +45,23 @@ class _DetailesScreenState extends State<DetailesScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
-            child: Icon(Icons.bookmark_border,
-            color: AppColors.white,),
+            child: GestureDetector(
+              onTap: (){
+
+                if(moviesBox.containsKey(widget.movie.id)){
+                  moviesBox.delete(widget.movie.id);
+                }else{
+                  moviesBox.put(widget.movie.id, widget.movie);
+                }
+                setState(() {
+
+                });
+              },
+              child: Icon(moviesBox.containsKey(widget.movie.id)
+                  ?Icons.bookmark
+                  :Icons.bookmark_border,
+              color: AppColors.white,),
+            ),
           ),
         ],
       ),

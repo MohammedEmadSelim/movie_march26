@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:movie_app_march26/home/data/models/carousel_movie_model.dart';
+import 'package:movie_app_march26/home/data/models/movie_model.dart';
 import 'package:movie_app_march26/home/data/models/now_playing_model.dart';
 
 part 'now_playing_state.dart';
