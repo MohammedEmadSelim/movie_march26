@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/details/presentation/widgets/Show_details_in_details_page.dart';
+
 
 class tap_about extends StatelessWidget {
   const tap_about({

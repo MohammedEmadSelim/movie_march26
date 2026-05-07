@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/Search/presentation/widgets/card_movie.dart';
+
 import 'package:movie_app_march26/Search/presentation/widgets/custom_row_serachpage.dart';
 import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/core/theme/AppColor.dart';

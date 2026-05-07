@@ -1,17 +1,11 @@
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:movie_app_march26/core/theme/AppColor.dart';
-import 'package:movie_app_march26/core/theme/widgets/loading_circler.dart';
+
 import 'package:movie_app_march26/details/data/models/Details_movie_model.dart';
-import 'package:movie_app_march26/details/data/models/ReviewResponseModel%20.dart';
-import 'package:movie_app_march26/details/data/models/cast_model.dart';
-import 'package:movie_app_march26/details/presentation/controller/cubit/cast_cubit_cubit.dart';
-import 'package:movie_app_march26/details/presentation/controller/cubit/review_det_cubit_cubit.dart';
-import 'package:movie_app_march26/details/presentation/widgets/ReviewCard.dart';
 import 'package:movie_app_march26/details/presentation/widgets/Tab_Cast.dart';
-import 'package:movie_app_march26/details/presentation/widgets/custom_cast_details.dart';
 import 'package:movie_app_march26/details/presentation/widgets/tap_about.dart';
 import 'package:movie_app_march26/details/presentation/widgets/tap_review.dart';
 import 'package:movie_app_march26/home/presentation/widgets/tab_name_tabs.dart';
