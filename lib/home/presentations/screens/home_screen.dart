@@ -2,8 +2,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
+import 'package:movie_app_march26/details_screen/presentation/screens/details_scren.dart';
+import 'package:movie_app_march26/home/data/models/carousel_movie_model.dart';
 import 'package:movie_app_march26/home/presentations/controller/carousel_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/now_playing_cubit/now_playing_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/up_coming_cubit/up_coming_cubit.dart';
+import 'package:movie_app_march26/home/presentations/widgets/custom_movies_grid.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
+import 'package:movie_app_march26/search/presentation/controllers/search_cubit.dart';
+import 'package:movie_app_march26/search/presentation/ui_screens/search_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../details_screen/presentation/screens/details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -47,8 +57,22 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 12),
             CustomTextForm(
               readOnly: true,
-              onTap: () {
+              onTap: () async{
                 print("tapped");
+
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                List data = [];
+                data.add(pref.get("key"));
+                data.add(pref.get("id"));
+                data.add(pref.get("name"));
+                data.add(pref.get("is_login"));
+                data.add(pref.get("score"));
+                print(data);
+                // Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                //     BlocProvider(
+                //       create: (context) => SearchCubit(),
+                //       child: SearchScreen(),
+                //     ),));
               },
             ),
             SizedBox(height: 36),
@@ -87,19 +111,24 @@ class HomeScreen extends StatelessWidget {
                     ),
                     itemCount: imageUrls.length,
                     itemBuilder:
-                        (
-                        BuildContext context,
+                        (BuildContext context,
                         int itemIndex,
-                        int pageViewIndex,
-                        ) => ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        "https://image.tmdb.org/t/p/w500${data[itemIndex].posterPath}",
-                        height: 250,
-                        width: 180,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        int pageViewIndex,) =>
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie:data[itemIndex] ,),));
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              "https://image.tmdb.org/t/p/w500${data[itemIndex]
+                                  .posterPath}",
+                              height: 250,
+                              width: 180,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                   );
                 }
 
@@ -115,11 +144,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                 }
-                return Center(child: Text("some unexpected has been happened",style: TextStyle(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                )));
+                return Center(
+                  child: Text(
+                    "some unexpected has been happened",
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                    ),
+                  ),
+                );
               },
             ),
             SizedBox(height: 36),
@@ -174,32 +208,74 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 2 / 3,
-                    ),
-                    itemBuilder: (context, index) => ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        imageUrls[index],
-                        height: 250,
-                        width: 180,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    itemCount: imageUrls.length,
+                  BlocBuilder<NowPlayingCubit, NowPlayingState>(
+                    builder: (context, state) {
+                      print("object ?????$state");
+
+                      if (state is NowPlayingLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state is NowPlayingSuccess) {
+                        var data = state.movies;
+                        return CustomMoviesGrid(
+                          data: data,);
+                      }
+
+                      if (state is NowPlayingFailure) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        );
+                      }
+                      return Center(
+                        child: Text(
+                          "some unexpected has been happened",
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                  Container(
-                    child: Center(
-                      child: Text(
-                        "up coming ",
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                    ),
+                  BlocBuilder<UpComingCubit, UpComingState>(
+                    builder: (context, state) {
+                      if (state is UpComingLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state is UpComingSuccess) {
+                        var data = state.movies;
+                        return CustomMoviesGrid(data: data,);
+                      }
+
+                      if (state is UpComingFailure) {
+                        return Center(child: Text(state.message,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),),);
+                      }
+                      return Center(
+                        child: Text(
+                          "some unexpected has been happened",
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    },
                   ),
+
                   Container(
                     child: Center(
                       child: Text(
@@ -225,3 +301,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
