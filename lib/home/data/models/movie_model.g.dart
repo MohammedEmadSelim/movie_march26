@@ -77,7 +77,7 @@ class MovieModelAdapter extends TypeAdapter<MovieModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is MovieModelAdapter &&
-              runtimeType == other.runtimeType &&
-              typeId == other.typeId;
+      other is MovieModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_march26/splash/presentation/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:movie_app_march26/details_screen/presentation/controllers/details_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/carousel_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/now_playing_cubit/now_playing_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/up_coming_cubit/up_coming_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/top_rated_cubit/top_rated_cubit.dart';
+import 'package:movie_app_march26/home/presentations/controller/popular_cubit/popular_cubit.dart';
+import 'core/cache/hive_boxes.dart';
+import 'home/data/models/movie_model.dart';
+import 'splash/presentation/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(MovieModelAdapter());
+  moviesBox = await Hive.openBox<MovieModel>("movie_box");
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => DetailsCubit()),
+        BlocProvider(create: (context) => CarouselCubit()..getCarouselMovies()),
+        BlocProvider(create: (context) => NowPlayingCubit()..getNowPlaying()),
+        BlocProvider(create: (context) => UpComingCubit()..getUpComingMovies()),
+        BlocProvider(create: (context) => TopRatedCubit()..getTopRatedMovies()),
+        BlocProvider(create: (context) => PopularCubit()..getPopularMovies()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       ),
-      home:  SplashScreen(),
     );
   }
 }

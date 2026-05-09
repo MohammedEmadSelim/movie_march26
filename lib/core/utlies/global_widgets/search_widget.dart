@@ -26,26 +26,22 @@ class SearchWidget extends StatelessWidget {
             },
           ),
           SizedBox(height: 24),
-          BlocBuilder<SearchCubit, SearchState>(
-            builder: (context, state) {
-              if(state is SearchLoading)
-              {
-                return Center(child: CircularProgressIndicator(),);
-              }
-              if(state is SearchSuccess){
-
-
-                var movies = state.movies;
-                if(movies.isEmpty)
-                {
-                  return Lottie.asset("assets/animations/Empty Box.json");
-
+          Expanded(
+            child: BlocBuilder<SearchCubit, SearchState>(
+              builder: (context, state) {
+                if (state is SearchLoading) {
+                  return Center(child: CircularProgressIndicator());
                 }
-                return Expanded(child: CustomMovieList(movies: movies));
-              }
-
-              return Lottie.asset("assets/animations/Empty Box.json");
-            },
+                if (state is SearchSuccess) {
+                  var movies = state.movies;
+                  if (movies.isEmpty) {
+                    return Lottie.asset("assets/animations/Empty Box.json");
+                  }
+                  return CustomMovieList(movies: movies);
+                }
+                return Lottie.asset("assets/animations/Empty Box.json");
+              },
+            ),
           ),
         ],
       ),
