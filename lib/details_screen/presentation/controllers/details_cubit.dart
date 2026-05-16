@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_app_march26/details_screen/data/models/movie_details_model.dart';
 
-import '../../../home/data/models/movie_model.dart';
+// import '../../../home/data/models/movie_model.dart';
 
 part 'details_state.dart';
 

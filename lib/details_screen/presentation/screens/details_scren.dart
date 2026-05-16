@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_march26/core/cache/hive_boxes.dart';
 import 'package:movie_app_march26/core/theme/appcolors.dart';
 import 'package:movie_app_march26/details_screen/presentation/controllers/details_cubit.dart';
+import 'package:movie_app_march26/home/data/models/movie_model.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key, required this.id});
+  const DetailsScreen({super.key, required this.movie});
 
-  final String id;
+  final MovieModel movie;
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -15,7 +17,7 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
-    context.read<DetailsCubit>().getMovieDetails(widget.id);
+    context.read<DetailsCubit>().getMovieDetails(widget.movie.id.toString());
     super.initState();
   }
 
@@ -34,6 +36,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              if (moviesBox.containsKey(widget.movie.id)) {
+                moviesBox.delete(widget.movie.id);
+              } else {
+                moviesBox.put(widget.movie.id, widget.movie);
+              }
+              setState(() {});
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Icon(
+                moviesBox.containsKey(widget.movie.id)
+                    ? Icons.bookmark
+                    : Icons.bookmark_border,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<DetailsCubit, DetailsState>(
         builder: (context, state) {
@@ -61,7 +84,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 bottomLeft: Radius.circular(12),
                                 bottomRight: Radius.circular(12),
                               ),
-                              child: Image.network(   "https://image.tmdb.org/t/p/w500${movie.backdropPath}",),
+                              child: Image.network(
+                                "https://image.tmdb.org/t/p/w500${movie.backdropPath}",
+                              ),
                             ),
                           ),
                         ),
@@ -72,7 +97,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           height: 160,
                           child: ClipRRect(
                             borderRadius: BorderRadiusGeometry.circular(12),
-                            child:  Image.network(   "https://image.tmdb.org/t/p/w500${movie.backdropPath}",fit: BoxFit.cover,),
+                            child: Image.network(
+                              "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -93,7 +121,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 14,),
+                  SizedBox(height: 14),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -110,7 +138,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       SizedBox(width: 6),
                       SizedBox(
                         height: 20,
-                        child: VerticalDivider(color: AppColors.white, width: 1),
+                        child: VerticalDivider(
+                          color: AppColors.white,
+                          width: 1,
+                        ),
                       ),
                       SizedBox(width: 6),
                       Icon(Icons.access_time, color: AppColors.white, size: 16),
@@ -122,7 +153,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       SizedBox(width: 6),
                       SizedBox(
                         height: 20,
-                        child: VerticalDivider(color: AppColors.white, width: 1),
+                        child: VerticalDivider(
+                          color: AppColors.white,
+                          width: 1,
+                        ),
                       ),
                       SizedBox(width: 6),
                       Icon(
