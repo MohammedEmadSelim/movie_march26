@@ -1,4 +1,4 @@
-// import 'package:movie_app_march26/home/data/models/carousel_movie_model.dart';
+import 'package:movie_app_march26/home/data/models/carousel_movie_model.dart';
 import 'package:movie_app_march26/home/data/models/movie_model.dart';
 
 class NowPlayingMovieModel {
@@ -53,4 +53,3 @@ class MovieDates {
     };
   }
 }
-

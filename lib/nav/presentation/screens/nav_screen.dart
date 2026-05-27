@@ -14,6 +14,8 @@ import 'package:movie_app_march26/search/presentation/controllers/search_cubit.d
 import 'package:movie_app_march26/search/presentation/ui_screens/search_screen.dart';
 import 'package:movie_app_march26/watchlist/presentation/screens/watchlist_screen.dart';
 
+import '../../../home/presentations/screens/home_screen.dart';
+
 class NavScreen extends StatefulWidget {
   NavScreen({super.key});
 

@@ -7,6 +7,8 @@ import 'package:movie_app_march26/home/data/models/movie_model.dart';
 import 'package:movie_app_march26/nav/presentation/widgets/custom_text_field.dart';
 import 'package:movie_app_march26/search/presentation/controllers/search_cubit.dart';
 
+import 'movie_list.dart';
+
 class SearchWidget extends StatelessWidget {
   const SearchWidget({
     super.key,
@@ -24,30 +26,25 @@ class SearchWidget extends StatelessWidget {
             },
           ),
           SizedBox(height: 24),
-          BlocBuilder<SearchCubit, SearchState>(
-            builder: (context, state) {
-              if(state is SearchLoading)
-              {
-                return Center(child: CircularProgressIndicator(),);
-              }
-              if(state is SearchSuccess){
-
-
-                var movies = state.movies;
-                if(movies.isEmpty)
-                {
-                  return Lottie.asset("assets/animations/Empty Box.json");
-
+          Expanded(
+            child: BlocBuilder<SearchCubit, SearchState>(
+              builder: (context, state) {
+                if (state is SearchLoading) {
+                  return Center(child: CircularProgressIndicator());
                 }
-                return Expanded(child: CustomMovieList(movies: movies));
-              }
-
-              return Lottie.asset("assets/animations/Empty Box.json");
-            },
+                if (state is SearchSuccess) {
+                  var movies = state.movies;
+                  if (movies.isEmpty) {
+                    return Lottie.asset("assets/animations/Empty Box.json");
+                  }
+                  return CustomMovieList(movies: movies);
+                }
+                return Lottie.asset("assets/animations/Empty Box.json");
+              },
+            ),
           ),
         ],
       ),
     );
   }
 }
-

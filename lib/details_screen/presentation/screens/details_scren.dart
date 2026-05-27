@@ -5,6 +5,8 @@ import 'package:movie_app_march26/core/theme/appcolors.dart';
 import 'package:movie_app_march26/details_screen/presentation/controllers/details_cubit.dart';
 import 'package:movie_app_march26/home/data/models/movie_model.dart';
 
+import '../../../home/data/models/movie_model.dart';
+
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key, required this.movie});
 
